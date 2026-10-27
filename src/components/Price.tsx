@@ -1,14 +1,13 @@
 import { formatMoney } from '../lib/money';
 
-export function Price({ price, compareAt, className = '' }: { price: number; compareAt?: number | null; className?: string }) {
+export function Price({ price, compareAt, from, className = '' }: { price: number; compareAt?: number | null; from?: boolean; className?: string }) {
   const onSale = compareAt != null && compareAt > price;
   return (
     <span className={`price ${className}`}>
-      <span className="visually-hidden">{onSale ? 'Sale price' : 'Price'}</span>
-      <span className="price-now">{formatMoney(price)}</span>
+      <span className="price-now">{from && 'ab '}{formatMoney(price)}</span>
       {onSale && (
         <>
-          <span className="visually-hidden">Regular price</span>
+          <span className="visually-hidden">statt</span>
           <s className="price-was">{formatMoney(compareAt)}</s>
         </>
       )}

@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { searchProducts } from '../lib/catalog';
 import { ProductListing } from '../components/ProductToolbar';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export function Search() {
   const [params, setParams] = useSearchParams();
@@ -9,9 +10,10 @@ export function Search() {
   const [input, setInput] = useState(q);
   useEffect(() => setInput(q), [q]);
   const results = searchProducts(q);
+  usePageTitle(q.trim() ? `Suche: ${q.trim()}` : 'Suche');
   return (
     <div className="page container">
-      <h1 className="page-title">Search</h1>
+      <h1 className="page-title">Suche</h1>
       <form
         className="search-page-form"
         role="search"
@@ -22,17 +24,20 @@ export function Search() {
           setParams(next);
         }}
       >
-        <input type="search" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Search for a watch, colour, model…" aria-label="Search" />
-        <button className="btn">Search</button>
+        <input type="search" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Suche nach Mantel, Pfotenschutz, Größe …" aria-label="Suchbegriff" />
+        <button className="btn">Suchen</button>
       </form>
       {!q.trim() ? (
-        <p className="muted center">Enter a search term, e.g. “Oak”, “gold”, “automatic” or “chronograph”.</p>
+        <p className="muted center">Gib einen Suchbegriff ein, z. B. „Mantel“, „Regen“, „Pfoten“ oder „Waldgrün“.</p>
       ) : results.length === 0 ? (
-        <div className="empty-state"><p>No results found for “{q}”. Check the spelling or try a different term.</p></div>
+        <div className="empty-state">
+          <p>Keine Ergebnisse für „{q}“. Prüfe die Schreibweise oder versuche einen anderen Begriff.</p>
+          <Link to="/collections/all" className="btn btn-outline">Ganze Winterkollektion ansehen</Link>
+        </div>
       ) : (
         <>
-          <p className="muted">Results for “{q}”</p>
-          <ProductListing items={results} defaultSort="featured" />
+          <p className="muted">Ergebnisse für „{q}“</p>
+          <ProductListing items={results} showCategoryFilter />
         </>
       )}
     </div>

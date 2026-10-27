@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { sizedImage } from '../lib/money';
+import { IconPaw } from './Icons';
 
 interface Props {
   src: string | null | undefined;
@@ -9,13 +10,14 @@ interface Props {
   eager?: boolean;
 }
 
-/** Lazy image with a loading shimmer and a neutral placeholder when the image cannot be loaded. */
+/** Lazy image with a fade-in and a branded placeholder when no image exists or it fails to load. */
 export function Img({ src, alt, width, className = '', eager }: Props) {
   const [state, setState] = useState<'loading' | 'loaded' | 'error'>(src ? 'loading' : 'error');
   if (state === 'error') {
     return (
-      <div className={`img-fallback ${className}`} role="img" aria-label={`${alt} (image unavailable)`}>
-        <span>Image unavailable</span>
+      <div className={`img-fallback ${className}`} role="img" aria-label={alt ? `${alt} – Produktbild folgt` : 'Produktbild folgt'}>
+        <IconPaw size={28} />
+        <span>Produktbild folgt</span>
       </div>
     );
   }
@@ -23,7 +25,6 @@ export function Img({ src, alt, width, className = '', eager }: Props) {
     <img
       className={`img ${state} ${className}`}
       src={sizedImage(src, width)}
-      srcSet={`${sizedImage(src, width)} 1x, ${sizedImage(src, width * 2)} 2x`}
       alt={alt}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"

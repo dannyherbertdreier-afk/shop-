@@ -1,5 +1,5 @@
 {
-  "name": "watch-shop-demo",
+  "name": "pawguard-shop-demo",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview --host",
     "test": "vitest run",
-    "import:products": "node scripts/import-products.mjs",
-    "test:e2e": "node tests/e2e.cjs"
+    "test:e2e": "node tests/e2e.cjs",
+    "sample:products": "node scripts/sample-products.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
