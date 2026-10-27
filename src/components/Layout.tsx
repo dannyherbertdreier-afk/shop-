@@ -7,52 +7,26 @@ import { SearchOverlay } from './SearchOverlay';
 import { Footer } from './Footer';
 
 export const NAV = [
-  { to: '/', label: 'Home' },
-  { to: '/collections/all', label: '2026 Collection' },
-  { to: '/collections/best-sellers', label: 'Best Sellers' },
-  { to: '/pages/track-order', label: 'Track my order' },
-  { to: '/pages/returns', label: 'Return & refund' },
-  { to: '/pages/about', label: 'About Us' },
-  { to: '/pages/contact', label: 'Contact' },
-  { to: '/pages/faq', label: 'FAQ' },
+  { to: '/collections/all', label: 'Winterkollektion' },
+  { to: '/collections/hundemaentel', label: 'Hundemäntel' },
+  { to: '/collections/pfotenschutz', label: 'Pfotenschutz' },
+  { to: '/collections/winter-overalls', label: 'Overalls' },
+  { to: '/collections/winterzubehoer', label: 'Zubehör' },
+  { to: '/pages/faq', label: 'Größe & Fragen' },
 ];
 
-const ANNOUNCEMENTS = ['Buy 1 = Get 1 Free', 'Our 4th anniversary', 'Free delivery', '14-day right of withdrawal'];
-
-export function Logo({ light = true }: { light?: boolean }) {
+export function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <Link to="/" className={`logo ${light ? 'logo-light' : ''}`} aria-label="Poedagar – home">
-      <span className="logo-word">poedagar</span>
-      <span className="logo-sub">Paris</span>
+    <Link to="/" className={`logo ${dark ? 'logo-dark' : ''}`} aria-label="PAWGUARD – zur Startseite">
+      PAWGUARD
     </Link>
-  );
-}
-
-function AnnouncementBar() {
-  const row = [...ANNOUNCEMENTS, ...ANNOUNCEMENTS];
-  return (
-    <div className="announcement" aria-label="Announcements">
-      <div className="marquee">
-        {[0, 1].map((k) => (
-          <div className="marquee-track" key={k} aria-hidden={k === 1}>
-            {row.map((t, i) => (
-              <span key={i}>
-                {t} <span className="diamond">◇</span>
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
 
 export function Layout({ children }: { children: ReactNode }) {
   const { totals, setCartOpen, setSearchOpen } = useShop();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
-  const overHero = pathname === '/';
 
   useEffect(() => {
     setMenuOpen(false);
@@ -60,42 +34,36 @@ export function Layout({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
     document.body.classList.toggle('no-scroll', menuOpen);
   }, [menuOpen]);
 
   return (
     <>
-      <a href="#main" className="skip-link">Skip to content</a>
-      <AnnouncementBar />
-      <header className={`header ${overHero && !scrolled ? 'header-transparent' : ''}`}>
+      <a href="#main" className="skip-link">Zum Inhalt springen</a>
+      <div className="topbar" role="note">
+        Demo-Shop im Aufbau · Beispielprodukte · keine echten Bestellungen
+      </div>
+      <header className="header">
         <div className="header-inner">
-          <button className="icon-btn only-mobile" aria-label="Open menu" onClick={() => setMenuOpen(true)}>
+          <button className="icon-btn only-mobile" aria-label="Menü öffnen" onClick={() => setMenuOpen(true)}>
             <IconMenu />
           </button>
           <Logo />
-          <nav className="nav-desktop" aria-label="Main">
+          <nav className="nav-desktop" aria-label="Hauptnavigation">
             {NAV.map((n) => (
-              <NavLink key={n.to} to={n.to} end={n.to === '/'}>
+              <NavLink key={n.to} to={n.to}>
                 {n.label}
               </NavLink>
             ))}
           </nav>
           <div className="header-actions">
-            <span className="locale only-desktop" title="Prices are shown in EUR">EUR / EN</span>
-            <button className="icon-btn" aria-label="Search" onClick={() => setSearchOpen(true)}>
+            <button className="icon-btn" aria-label="Suche öffnen" onClick={() => setSearchOpen(true)}>
               <IconSearch />
             </button>
-            <Link className="icon-btn only-desktop-sm" to="/account" aria-label="Account">
+            <Link className="icon-btn only-desktop-sm" to="/account" aria-label="Meine Bestellungen">
               <IconUser />
             </Link>
-            <button className="icon-btn cart-btn" aria-label={`Cart, ${totals.itemCount} items`} onClick={() => setCartOpen(true)}>
+            <button className="icon-btn cart-btn" aria-label={`Warenkorb, ${totals.itemCount} Artikel`} onClick={() => setCartOpen(true)}>
               <IconBag />
               {totals.itemCount > 0 && <span className="cart-count">{totals.itemCount}</span>}
             </button>
@@ -104,34 +72,31 @@ export function Layout({ children }: { children: ReactNode }) {
       </header>
 
       <div className={`drawer-backdrop ${menuOpen ? 'show' : ''}`} onClick={() => setMenuOpen(false)} />
-      <aside className={`menu-drawer ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen} aria-label="Menu">
+      <aside className={`menu-drawer ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen} aria-label="Menü">
         <div className="drawer-head">
-          <Logo light={false} />
-          <button className="icon-btn" aria-label="Close menu" onClick={() => setMenuOpen(false)}>
+          <Logo dark />
+          <button className="icon-btn" aria-label="Menü schließen" onClick={() => setMenuOpen(false)}>
             <IconClose />
           </button>
         </div>
         <nav className="menu-links">
+          <NavLink to="/" end tabIndex={menuOpen ? 0 : -1}>Startseite</NavLink>
           {NAV.map((n) => (
-            <NavLink key={n.to} to={n.to} end={n.to === '/'} tabIndex={menuOpen ? 0 : -1}>
+            <NavLink key={n.to} to={n.to} tabIndex={menuOpen ? 0 : -1}>
               {n.label}
             </NavLink>
           ))}
-          <NavLink to="/account" tabIndex={menuOpen ? 0 : -1}>
-            My orders
-          </NavLink>
+          <NavLink to="/account" tabIndex={menuOpen ? 0 : -1}>Meine Bestellungen</NavLink>
+          <NavLink to="/pages/contact" tabIndex={menuOpen ? 0 : -1}>Kontakt</NavLink>
         </nav>
-        <p className="menu-note">Prices in EUR · English</p>
       </aside>
 
-      <main id="main" className={overHero ? 'main-hero' : ''}>
-        {children}
-      </main>
+      <main id="main">{children}</main>
       <Footer />
 
-      <Link to="/pages/contact" className="help-bubble" aria-label="Need help? Contact us">
-        <span className="help-icon"><IconChat size={22} /></span>
-        <span className="help-text">Need help?</span>
+      <Link to="/pages/contact" className="help-bubble" aria-label="Fragen? Schreib uns">
+        <IconChat size={20} />
+        <span className="help-text">Fragen?</span>
       </Link>
 
       <CartDrawer />

@@ -12,32 +12,31 @@ function OrderDetails({ order }: { order: Order }) {
   return (
     <div className="order-card">
       <div className="order-meta">
-        <div><span className="muted">Order</span><strong>{order.number}</strong></div>
-        <div><span className="muted">Date</span><strong>{new Date(order.createdAt).toLocaleString('en-GB')}</strong></div>
-        <div><span className="muted">Status</span><strong>Demo – not processed</strong></div>
+        <div><span className="muted">Bestellung</span><strong>{order.number}</strong></div>
+        <div><span className="muted">Datum</span><strong>{new Date(order.createdAt).toLocaleString('de-DE')}</strong></div>
+        <div><span className="muted">Status</span><strong>Demo – nicht bearbeitet</strong></div>
       </div>
       <ul className="summary-lines">
         {order.lines.map((l, i) => (
           <li key={i}>
             <span className="summary-img"><Img src={l.image} alt={l.title} width={120} /><span className="summary-qty">{l.quantity}</span></span>
-            <span className="summary-name">{l.title}<small>{l.variantTitle}</small></span>
+            <span className="summary-name">{l.title}{l.variantTitle !== 'Standard' && <small>{l.variantTitle}</small>}</span>
             <span>{formatMoney(l.unitPrice * l.quantity)}</span>
           </li>
         ))}
       </ul>
       <dl className="totals">
-        <div><dt>Subtotal</dt><dd>{formatMoney(order.subtotal)}</dd></div>
-        {order.discount > 0 && <div className="discount"><dt>Buy 1, Get 1 Free</dt><dd>−{formatMoney(order.discount)}</dd></div>}
-        <div><dt>Shipping</dt><dd>{order.shipping ? formatMoney(order.shipping) : 'Free'}</dd></div>
-        <div className="total"><dt>Total</dt><dd>{formatMoney(order.total)}</dd></div>
+        <div><dt>Zwischensumme</dt><dd>{formatMoney(order.subtotal)}</dd></div>
+        <div><dt>Versand</dt><dd>{order.shipping ? formatMoney(order.shipping) : 'noch nicht festgelegt'}</dd></div>
+        <div className="total"><dt>Gesamt (Demo)</dt><dd>{formatMoney(order.total)}</dd></div>
       </dl>
       <div className="order-address">
         <div>
-          <h3>Delivery address</h3>
+          <h3>Lieferadresse</h3>
           <p>{a.firstName} {a.lastName}<br />{a.address1}{a.address2 && <><br />{a.address2}</>}<br />{a.zip} {a.city}<br />{COUNTRIES.find((c) => c.code === a.country)?.name}</p>
         </div>
         <div>
-          <h3>Shipping & payment</h3>
+          <h3>Versand & Zahlung</h3>
           <p>{order.shippingMethod}<br />{order.paymentMethod}<br />{order.email}</p>
         </div>
       </div>
@@ -52,9 +51,9 @@ export function OrderConfirmation() {
   if (!order) {
     return (
       <div className="page container empty-state">
-        <h1 className="page-title">Order not found</h1>
-        <p>This order does not exist in this browser.</p>
-        <Link to="/" className="btn">Back to home</Link>
+        <h1 className="page-title">Bestellung nicht gefunden</h1>
+        <p>Diese Bestellung ist in diesem Browser nicht gespeichert.</p>
+        <Link to="/" className="btn">Zur Startseite</Link>
       </div>
     );
   }
@@ -62,14 +61,14 @@ export function OrderConfirmation() {
     <div className="page container narrow">
       <div className="confirm-head">
         <span className="confirm-icon"><IconCheck size={28} /></span>
-        <h1 className="page-title">Thank you, {order.address.firstName}!</h1>
-        <p>Your demo order <strong>{order.number}</strong> was recorded in this browser.</p>
-        <p className="demo-banner">This is a demo: nothing was charged, no email was sent and nothing will be shipped.</p>
+        <h1 className="page-title">Danke, {order.address.firstName}!</h1>
+        <p>Deine Demo-Bestellung <strong>{order.number}</strong> wurde in diesem Browser gespeichert.</p>
+        <p className="demo-banner">Dies ist eine Demo: Es wurde nichts berechnet, keine E-Mail verschickt und es wird nichts versendet.</p>
       </div>
       <OrderDetails order={order} />
       <div className="center gap">
-        <Link to="/pages/track-order" className="btn btn-outline">Track my order</Link>
-        <Link to="/collections/all" className="btn">Continue shopping</Link>
+        <Link to="/pages/track-order" className="btn btn-outline">Bestellung verfolgen</Link>
+        <Link to="/collections/all" className="btn">Weiter einkaufen</Link>
       </div>
     </div>
   );
@@ -83,32 +82,32 @@ export function TrackOrder() {
   const [error, setError] = useState<string>();
   return (
     <div className="page container narrow">
-      <h1 className="page-title">Track my order</h1>
-      <p className="center muted">Enter your order number and email address. In this demo, only orders placed in this browser can be found.</p>
+      <h1 className="page-title">Bestellung verfolgen</h1>
+      <p className="center muted">Gib deine Bestellnummer und E-Mail-Adresse ein. In der Demo werden nur Bestellungen aus diesem Browser gefunden.</p>
       <form
         className="track-form"
         noValidate
         onSubmit={(e) => {
           e.preventDefault();
-          const err = !number.trim() ? 'Enter your order number' : validateEmail(email);
+          const err = !number.trim() ? 'Bitte gib deine Bestellnummer ein' : validateEmail(email);
           setError(err);
           if (err) return setResult(undefined);
           setResult(orders.find((o) => o.number.toLowerCase() === number.trim().toLowerCase() && o.email === email.trim().toLowerCase()) ?? null);
         }}
       >
-        <label className="field"><span>Order number</span><input value={number} onChange={(e) => setNumber(e.target.value)} placeholder="DEMO-1234567" /></label>
-        <label className="field"><span>Email</span><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
+        <label className="field"><span>Bestellnummer</span><input value={number} onChange={(e) => setNumber(e.target.value)} placeholder="PG-DEMO-1234567" /></label>
+        <label className="field"><span>E-Mail</span><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
         {error && <p className="field-error">{error}</p>}
-        <button className="btn btn-block">Track</button>
+        <button className="btn btn-block">Suchen</button>
       </form>
-      {result === null && <p className="form-error" role="alert">No order found with this number and email address.</p>}
+      {result === null && <p className="form-error" role="alert">Keine Bestellung mit dieser Nummer und E-Mail-Adresse gefunden.</p>}
       {result && (
         <>
           <ol className="timeline">
-            <li className="done">Order received</li>
-            <li>Prepared</li>
-            <li>Shipped</li>
-            <li>Delivered</li>
+            <li className="done">Eingegangen</li>
+            <li>In Bearbeitung</li>
+            <li>Versendet</li>
+            <li>Zugestellt</li>
           </ol>
           <OrderDetails order={result} />
         </>
@@ -121,12 +120,12 @@ export function Account() {
   const { orders } = useShop();
   return (
     <div className="page container narrow">
-      <h1 className="page-title">My orders</h1>
-      <p className="center muted">Customer accounts are not part of this demo. Orders placed in this browser are listed here.</p>
+      <h1 className="page-title">Meine Bestellungen</h1>
+      <p className="center muted">Kundenkonten gibt es in der Demo noch nicht. Hier stehen die Demo-Bestellungen aus diesem Browser.</p>
       {orders.length === 0 ? (
         <div className="empty-state">
-          <p>You haven't placed any orders yet.</p>
-          <Link to="/collections/all" className="btn">Start shopping</Link>
+          <p>Du hast noch keine Demo-Bestellung aufgegeben.</p>
+          <Link to="/collections/all" className="btn">Winterkollektion entdecken</Link>
         </div>
       ) : (
         orders.map((o) => <OrderDetails key={o.number} order={o} />)

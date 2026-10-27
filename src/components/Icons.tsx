@@ -25,3 +25,8 @@ export const IconChat = ({ size }: P) => (<svg {...base(size)}><path d="M4 5h16v
 export const IconLock = ({ size }: P) => (<svg {...base(size)}><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>);
 export const IconAward = ({ size }: P) => (<svg {...base(size)}><circle cx="12" cy="9" r="5" /><path d="m9 13-2 8 5-3 5 3-2-8" /></svg>);
 export const IconStar = ({ size }: P) => (<svg {...base(size)}><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" /></svg>);
+export const IconPaw = ({ size }: P) => (<svg {...base(size)}><circle cx="7" cy="9" r="1.8" /><circle cx="11" cy="6" r="1.8" /><circle cx="15.5" cy="6.5" r="1.8" /><circle cx="18.5" cy="10.5" r="1.8" /><path d="M8 17c0-3 2-5.5 4.5-5.5S17 14 17 16.5c0 2-1.6 2.5-3 2.2-1-.2-1.7-.7-2.5-.7s-1.5.6-2.4.8C7.9 19 8 18 8 17Z" /></svg>);
+export const IconSnow = ({ size }: P) => (<svg {...base(size)}><path d="M12 2v20M4 7l16 10M20 7 4 17" /><path d="m9 4 3 2 3-2M9 20l3-2 3 2" /></svg>);
+export const IconMove = ({ size }: P) => (<svg {...base(size)}><path d="M5 12h14M12 5v14" /><path d="m8 8-3 4 3 4M16 8l3 4-3 4" /></svg>);
+export const IconLeash = ({ size }: P) => (<svg {...base(size)}><circle cx="17" cy="17" r="3" /><path d="M14.8 14.8 5 5M5 5v4M5 5h4" /></svg>);
+export const IconRuler = ({ size }: P) => (<svg {...base(size)}><rect x="3" y="8" width="18" height="8" rx="1.5" /><path d="M7 8v3M11 8v4M15 8v3M19 8v4" /></svg>);

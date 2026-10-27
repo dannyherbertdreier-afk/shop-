@@ -6,22 +6,22 @@ export function Cart() {
   const { lines, clearCart } = useShop();
   return (
     <div className="page container">
-      <h1 className="page-title">Your cart</h1>
+      <h1 className="page-title">Warenkorb</h1>
       {lines.length === 0 ? (
         <div className="empty-state">
-          <p>Your cart is empty</p>
-          <Link to="/collections/all" className="btn">Continue shopping</Link>
+          <p>Dein Warenkorb ist leer.</p>
+          <Link to="/collections/all" className="btn">Winterkollektion entdecken</Link>
         </div>
       ) : (
         <div className="cart-page">
           <div>
             <CartLines />
-            <button className="link-btn link-underline" onClick={clearCart}>Empty cart</button>
+            <button className="link-btn link-underline" onClick={clearCart}>Warenkorb leeren</button>
           </div>
           <aside className="cart-page-summary">
             <CartSummary />
-            <Link to="/checkout" className="btn btn-block">Check out</Link>
-            <Link to="/collections/all" className="btn btn-outline btn-block">Continue shopping</Link>
+            <Link to="/checkout" className="btn btn-block">Zur Kasse (Demo)</Link>
+            <Link to="/collections/all" className="btn btn-outline btn-block">Weiter einkaufen</Link>
           </aside>
         </div>
       )}

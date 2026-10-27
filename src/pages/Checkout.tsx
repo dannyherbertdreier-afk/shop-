@@ -8,9 +8,9 @@ import { formatMoney } from '../lib/money';
 import { CartSummary } from '../components/CartLines';
 
 const PAYMENT_METHODS = [
-  { id: 'demo-card', label: 'Credit card (demo – no card data is collected)' },
-  { id: 'demo-paypal', label: 'PayPal (demo)' },
-  { id: 'demo-invoice', label: 'Pay later (demo)' },
+  { id: 'demo-card', label: 'Kreditkarte (Demo – es werden keine Kartendaten abgefragt)' },
+  { id: 'demo-paypal', label: 'PayPal (Demo)' },
+  { id: 'demo-invoice', label: 'Rechnung (Demo)' },
 ];
 
 type FormState = Address & { email: string; payment: string; terms: boolean };
@@ -57,9 +57,9 @@ export function Checkout() {
   if (lines.length === 0) {
     return (
       <div className="page container empty-state">
-        <h1 className="page-title">Checkout</h1>
-        <p>Your cart is empty, so there is nothing to check out.</p>
-        <Link to="/collections/all" className="btn">Continue shopping</Link>
+        <h1 className="page-title">Kasse</h1>
+        <p>Dein Warenkorb ist leer.</p>
+        <Link to="/collections/all" className="btn">Winterkollektion entdecken</Link>
       </div>
     );
   }
@@ -69,10 +69,10 @@ export function Checkout() {
     const errs: FormErrors = { ...validateAddress(form) };
     const emailErr = validateEmail(form.email);
     if (emailErr) errs.email = emailErr;
-    if (!form.terms) errs.terms = 'Please accept the terms to continue';
+    if (!form.terms) errs.terms = 'Bitte bestätige den Hinweis, um fortzufahren';
     setErrors(errs);
     if (Object.keys(errs).length) {
-      setSubmitError('Please correct the highlighted fields.');
+      setSubmitError('Bitte korrigiere die markierten Felder.');
       const first = document.querySelector<HTMLInputElement>(`[name="${Object.keys(errs)[0]}"]`);
       first?.focus();
       return;
@@ -81,11 +81,11 @@ export function Checkout() {
     setSubmitting(true);
     setTimeout(() => {
       const order: Order = {
-        number: `DEMO-${Date.now().toString().slice(-6)}${Math.floor(Math.random() * 10)}`,
+        number: `PG-DEMO-${Date.now().toString().slice(-6)}${Math.floor(Math.random() * 10)}`,
         createdAt: new Date().toISOString(),
         email: form.email.trim().toLowerCase(),
         address: { firstName: form.firstName, lastName: form.lastName, address1: form.address1, address2: form.address2, zip: form.zip, city: form.city, country: form.country, phone: form.phone },
-        shippingMethod: 'Free delivery (3–7 working days)',
+        shippingMethod: 'Versand: noch nicht festgelegt (Demo)',
         paymentMethod: PAYMENT_METHODS.find((p) => p.id === form.payment)!.label,
         lines: lines.map((l) => ({ title: l.product.title, variantTitle: l.variant.title, image: l.variant.image, quantity: l.quantity, unitPrice: l.variant.price })),
         subtotal: totals.subtotal,
@@ -101,44 +101,44 @@ export function Checkout() {
 
   return (
     <div className="page container">
-      <h1 className="page-title">Checkout</h1>
+      <h1 className="page-title">Kasse</h1>
       <p className="demo-banner" role="note">
-        <strong>Demo checkout.</strong> No real order is placed and no payment is taken. Your details are stored only in this browser.
+        <strong>Demo-Kasse.</strong> Es wird keine echte Bestellung aufgegeben und nichts berechnet. Deine Angaben werden nur in diesem Browser gespeichert.
       </p>
       <div className="checkout">
         <form className="checkout-form" noValidate onSubmit={submit}>
           <section>
-            <h2>Contact</h2>
-            <Field name="email" label="Email" type="email" autoComplete="email" inputMode="email" form={form} errors={errors} set={set} />
+            <h2>Kontakt</h2>
+            <Field name="email" label="E-Mail" type="email" autoComplete="email" inputMode="email" form={form} errors={errors} set={set} />
           </section>
           <section>
-            <h2>Delivery</h2>
+            <h2>Lieferadresse</h2>
             <label className={`field ${errors.country ? 'has-error' : ''}`}>
-              <span>Country</span>
+              <span>Land</span>
               <select name="country" value={form.country} onChange={(e) => set('country', e.target.value)} autoComplete="country">
                 {COUNTRIES.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}
               </select>
             </label>
             <div className="field-row">
-              <Field name="firstName" label="First name" autoComplete="given-name" form={form} errors={errors} set={set} />
-              <Field name="lastName" label="Last name" autoComplete="family-name" form={form} errors={errors} set={set} />
+              <Field name="firstName" label="Vorname" autoComplete="given-name" form={form} errors={errors} set={set} />
+              <Field name="lastName" label="Nachname" autoComplete="family-name" form={form} errors={errors} set={set} />
             </div>
-            <Field name="address1" label="Street and house number" autoComplete="address-line1" form={form} errors={errors} set={set} />
-            <Field name="address2" label="Apartment, suite, etc." optional autoComplete="address-line2" form={form} errors={errors} set={set} />
+            <Field name="address1" label="Straße und Hausnummer" autoComplete="address-line1" form={form} errors={errors} set={set} />
+            <Field name="address2" label="Adresszusatz" optional autoComplete="address-line2" form={form} errors={errors} set={set} />
             <div className="field-row">
-              <Field name="zip" label="Postal code" autoComplete="postal-code" form={form} errors={errors} set={set} />
-              <Field name="city" label="City" autoComplete="address-level2" form={form} errors={errors} set={set} />
+              <Field name="zip" label="PLZ" autoComplete="postal-code" form={form} errors={errors} set={set} />
+              <Field name="city" label="Ort" autoComplete="address-level2" form={form} errors={errors} set={set} />
             </div>
-            <Field name="phone" label="Phone" optional type="tel" autoComplete="tel" inputMode="tel" form={form} errors={errors} set={set} />
+            <Field name="phone" label="Telefon" optional type="tel" autoComplete="tel" inputMode="tel" form={form} errors={errors} set={set} />
           </section>
           <section>
-            <h2>Shipping method</h2>
+            <h2>Versand</h2>
             <label className="choice on">
-              <input type="radio" checked readOnly /> <span>Free delivery · 3–7 working days</span> <strong>Free</strong>
+              <input type="radio" checked readOnly /> <span>Versandart wird noch festgelegt (Demo)</span>
             </label>
           </section>
           <section>
-            <h2>Payment</h2>
+            <h2>Zahlung</h2>
             {PAYMENT_METHODS.map((p) => (
               <label key={p.id} className={`choice ${form.payment === p.id ? 'on' : ''}`}>
                 <input type="radio" name="payment" value={p.id} checked={form.payment === p.id} onChange={() => set('payment', p.id)} />
@@ -148,16 +148,16 @@ export function Checkout() {
           </section>
           <label className={`check terms ${errors.terms ? 'has-error' : ''}`}>
             <input type="checkbox" name="terms" checked={form.terms} onChange={(e) => set('terms', e.target.checked)} />
-            <span>I understand this is a demo and accept the <Link to="/policies/terms-of-sale">terms of sale</Link>.</span>
+            <span>Mir ist bewusst, dass dies ein Demo-Shop ist und keine echte Bestellung entsteht.</span>
           </label>
           {errors.terms && <p className="field-error">{errors.terms}</p>}
           {submitError && <p className="form-error" role="alert">{submitError}</p>}
           <button className="btn btn-block btn-lg" disabled={submitting}>
-            {submitting ? <span className="spinner" aria-label="Placing order" /> : `Place demo order · ${formatMoney(totals.total)}`}
+            {submitting ? <span className="spinner" aria-label="Bestellung wird angelegt" /> : `Demo-Bestellung abschicken · ${formatMoney(totals.total)}`}
           </button>
         </form>
         <aside className="checkout-summary">
-          <h2>Order summary</h2>
+          <h2>Bestellübersicht</h2>
           <ul className="summary-lines">
             {lines.map((l) => (
               <li key={l.variantId}>
@@ -165,7 +165,7 @@ export function Checkout() {
                   <Img src={l.variant.image} alt={l.product.title} width={120} />
                   <span className="summary-qty">{l.quantity}</span>
                 </span>
-                <span className="summary-name">{l.product.title}<small>{l.variant.title}</small></span>
+                <span className="summary-name">{l.product.title}{l.variant.title !== 'Standard' && <small>{l.variant.title}</small>}</span>
                 <span>{formatMoney(l.lineTotal)}</span>
               </li>
             ))}

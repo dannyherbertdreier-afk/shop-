@@ -20,18 +20,18 @@ export function CartDrawer() {
   return (
     <>
       <div className={`drawer-backdrop ${cartOpen ? 'show' : ''}`} onClick={close} />
-      <aside className={`cart-drawer ${cartOpen ? 'open' : ''}`} aria-hidden={!cartOpen} aria-label="Cart" role="dialog">
+      <aside className={`cart-drawer ${cartOpen ? 'open' : ''}`} aria-hidden={!cartOpen} aria-label="Warenkorb" role="dialog">
         <div className="drawer-head">
-          <h2>Your cart {totals.itemCount > 0 && <span className="muted">({totals.itemCount})</span>}</h2>
-          <button className="icon-btn" aria-label="Close cart" onClick={close}>
+          <h2>Warenkorb {totals.itemCount > 0 && <span className="muted">({totals.itemCount})</span>}</h2>
+          <button className="icon-btn" aria-label="Warenkorb schließen" onClick={close}>
             <IconClose />
           </button>
         </div>
         {cartOpen && (lines.length === 0 ? (
           <div className="empty-state">
-            <p>Your cart is empty</p>
+            <p>Dein Warenkorb ist leer.</p>
             <Link to="/collections/all" className="btn" onClick={close}>
-              Continue shopping
+              Winterkollektion entdecken
             </Link>
           </div>
         ) : (
@@ -42,10 +42,10 @@ export function CartDrawer() {
             <div className="drawer-foot">
               <CartSummary />
               <button className="btn btn-block" onClick={() => { close(); navigate('/checkout'); }}>
-                Check out
+                Zur Kasse (Demo)
               </button>
               <Link to="/cart" className="btn btn-outline btn-block" onClick={close}>
-                View cart
+                Warenkorb ansehen
               </Link>
             </div>
           </>

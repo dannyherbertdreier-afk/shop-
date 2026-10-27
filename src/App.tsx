@@ -7,7 +7,7 @@ import { Search } from './pages/Search';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Account, OrderConfirmation, TrackOrder } from './pages/Orders';
-import { About, Contact, Faq, Policy, Returns } from './pages/Info';
+import { About, Contact, Faq, ImageCredits, Policy, Returns, Shipping } from './pages/Info';
 import { NotFound } from './pages/NotFound';
 
 export function App() {
@@ -23,7 +23,9 @@ export function App() {
         <Route path="/order/:number" element={<OrderConfirmation />} />
         <Route path="/account" element={<Account />} />
         <Route path="/pages/track-order" element={<TrackOrder />} />
-        <Route path="/pages/returns" element={<Returns />} />
+        <Route path="/pages/rueckgabe" element={<Returns />} />
+        <Route path="/pages/versand" element={<Shipping />} />
+        <Route path="/pages/bildnachweise" element={<ImageCredits />} />
         <Route path="/pages/about" element={<About />} />
         <Route path="/pages/contact" element={<Contact />} />
         <Route path="/pages/faq" element={<Faq />} />

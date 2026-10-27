@@ -6,116 +6,106 @@ export const products = data as Product[];
 export interface Collection {
   handle: string;
   title: string;
-  subtitle: string;
+  intro: string;
+  image: string | null;
   filter: (p: Product) => boolean;
-  defaultSort: SortKey;
 }
 
+export const CATEGORIES: Collection[] = [
+  { handle: 'hundemaentel', title: 'Hundemäntel', intro: 'Mäntel und Westen für kalte, nasse und windige Tage.', image: 'images/steppjacke-beagle.jpg', filter: (p) => p.category === 'hundemaentel' },
+  { handle: 'pfotenschutz', title: 'Pfotenschutz', intro: 'Schuhe, Socken und Pflege für Wege mit Schnee und Streusalz.', image: 'images/pfotenabdruck-schnee.jpg', filter: (p) => p.category === 'pfotenschutz' },
+  { handle: 'winter-overalls', title: 'Winter-Overalls', intro: 'Overalls, die auch die Beine bedecken.', image: 'images/ganzkoerperanzug.jpg', filter: (p) => p.category === 'winter-overalls' },
+  { handle: 'winterzubehoer', title: 'Winterzubehör', intro: 'Pullover, Licht, Leinen und alles für danach.', image: 'images/strickpullover-yorkies.jpg', filter: (p) => p.category === 'winterzubehoer' },
+];
+
 export const collections: Collection[] = [
-  { handle: 'all', title: 'Poedagar Watches', subtitle: '2026 Collection', filter: () => true, defaultSort: 'featured' },
-  { handle: 'best-sellers', title: 'Best Sellers', subtitle: "Our customers' favorite watches", filter: (p) => p.bestsellerRank != null, defaultSort: 'best-selling' },
+  { handle: 'all', title: 'Winterkollektion', intro: 'Alle Winterbegleiter für deinen Hund auf einen Blick.', image: 'images/hund-schneejacke.jpg', filter: () => true },
+  ...CATEGORIES,
 ];
 
 export const findCollection = (handle: string) => collections.find((c) => c.handle === handle);
 export const findProduct = (handle: string) => products.find((p) => p.handle === handle);
+export const categoryTitle = (handle: string) => CATEGORIES.find((c) => c.handle === handle)?.title ?? '';
 
 export const isAvailable = (p: Product) => p.variants.some((v) => v.available);
 export const firstAvailableVariant = (p: Product): Variant => p.variants.find((v) => v.available) ?? p.variants[0];
 export const minPrice = (p: Product) => Math.min(...p.variants.map((v) => v.price));
 export const minPriceVariant = (p: Product) => p.variants.reduce((a, b) => (b.price < a.price ? b : a));
-export const discountPercent = (v: Variant) =>
-  v.compareAtPrice && v.compareAtPrice > v.price ? Math.round((1 - v.price / v.compareAtPrice) * 100) : 0;
+export const hasPriceRange = (p: Product) => new Set(p.variants.map((v) => v.price)).size > 1;
 
-// Colour families are derived from the variant names of the reference data.
-export const COLOR_FAMILIES = ['Black', 'Blue', 'Green', 'White', 'Silver', 'Gold', 'Rose Gold', 'Grey'] as const;
-export type ColorFamily = (typeof COLOR_FAMILIES)[number];
-
-export function colorFamilies(p: Product): ColorFamily[] {
-  const found = new Set<ColorFamily>();
-  for (const v of p.variants) {
-    const t = v.title.toLowerCase();
-    if (/black|noir/.test(t)) found.add('Black');
-    if (/blue|bleu/.test(t)) found.add('Blue');
-    if (/green|vert/.test(t)) found.add('Green');
-    if (/white|blanc/.test(t)) found.add('White');
-    if (/silver|argent|money/.test(t)) found.add('Silver');
-    if (/rose/.test(t)) found.add('Rose Gold');
-    else if (/gold|\bor\b/.test(t)) found.add('Gold');
-    if (/gr[ae]y/.test(t)) found.add('Grey');
-  }
-  if (/rose gold/i.test(p.title)) found.add('Rose Gold');
-  return [...found];
+/** Finds the variant matching the selected option values (one per product option). */
+export function findVariant(p: Product, selected: string[]): Variant | undefined {
+  return p.variants.find((v) => v.options.every((o, i) => o === selected[i]));
 }
 
-export type SortKey = 'featured' | 'best-selling' | 'price-asc' | 'price-desc' | 'title-asc' | 'title-desc' | 'discount';
+export const optionValues = (p: Product, name: string) => p.options.find((o) => o.name === name)?.values ?? [];
+
+export type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'title-asc' | 'title-desc';
 export const SORT_OPTIONS: { key: SortKey; label: string }[] = [
-  { key: 'featured', label: 'Featured' },
-  { key: 'best-selling', label: 'Best selling' },
-  { key: 'price-asc', label: 'Price, low to high' },
-  { key: 'price-desc', label: 'Price, high to low' },
-  { key: 'title-asc', label: 'Alphabetically, A-Z' },
-  { key: 'title-desc', label: 'Alphabetically, Z-A' },
-  { key: 'discount', label: 'Biggest discount' },
+  { key: 'featured', label: 'Empfohlen' },
+  { key: 'price-asc', label: 'Preis aufsteigend' },
+  { key: 'price-desc', label: 'Preis absteigend' },
+  { key: 'title-asc', label: 'Name A–Z' },
+  { key: 'title-desc', label: 'Name Z–A' },
 ];
 
 export interface Filters {
   inStockOnly: boolean;
-  colors: ColorFamily[];
+  categories: string[];
+  colors: string[];
+  sizes: string[];
   maxPrice: number | null; // cents
 }
 
-export const emptyFilters: Filters = { inStockOnly: false, colors: [], maxPrice: null };
+export const emptyFilters: Filters = { inStockOnly: false, categories: [], colors: [], sizes: [], maxPrice: null };
 
 export function applyFilters(list: Product[], f: Filters): Product[] {
   return list.filter((p) => {
     if (f.inStockOnly && !isAvailable(p)) return false;
+    if (f.categories.length && !f.categories.includes(p.category)) return false;
     if (f.maxPrice != null && minPrice(p) > f.maxPrice) return false;
-    if (f.colors.length) {
-      const fam = colorFamilies(p);
-      if (!f.colors.some((c) => fam.includes(c))) return false;
-    }
+    if (f.colors.length && !f.colors.some((c) => optionValues(p, 'Farbe').includes(c))) return false;
+    if (f.sizes.length && !f.sizes.some((s) => optionValues(p, 'Größe').includes(s))) return false;
     return true;
   });
 }
 
 export function sortProducts(list: Product[], key: SortKey): Product[] {
   const out = [...list];
-  const rank = (p: Product) => p.bestsellerRank ?? 999;
+  const rank = (p: Product) => p.featuredRank ?? 999;
   switch (key) {
-    case 'best-selling':
-      return out.sort((a, b) => rank(a) - rank(b));
     case 'price-asc':
       return out.sort((a, b) => minPrice(a) - minPrice(b));
     case 'price-desc':
       return out.sort((a, b) => minPrice(b) - minPrice(a));
     case 'title-asc':
-      return out.sort((a, b) => a.title.localeCompare(b.title));
+      return out.sort((a, b) => a.title.localeCompare(b.title, 'de'));
     case 'title-desc':
-      return out.sort((a, b) => b.title.localeCompare(a.title));
-    case 'discount':
-      return out.sort((a, b) => discountPercent(minPriceVariant(b)) - discountPercent(minPriceVariant(a)));
+      return out.sort((a, b) => b.title.localeCompare(a.title, 'de'));
     default:
-      return out; // source order of the reference catalogue
+      return out.sort((a, b) => rank(a) - rank(b));
   }
 }
 
-const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ');
+const normalize = (s: string) =>
+  s.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ');
 const stripHtml = (s: string) => s.replace(/<[^>]+>/g, ' ');
 
-/** Simple ranked search: every query word must match title, variant names or description. */
+/** Ranked search: every query word must match title, category, tags, options or description. */
 export function searchProducts(query: string, list: Product[] = products): Product[] {
   const words = normalize(query).split(/\s+/).filter(Boolean);
   if (!words.length) return [];
   const scored: { p: Product; score: number }[] = [];
   for (const p of list) {
     const title = normalize(p.title);
-    const variants = normalize(p.variants.map((v) => v.title).join(' '));
-    const desc = normalize(stripHtml(p.descriptionHtml));
+    const meta = normalize([categoryTitle(p.category), ...p.tags, ...p.options.flatMap((o) => o.values)].join(' '));
+    const desc = normalize(`${p.summary} ${stripHtml(p.descriptionHtml)}`);
     let score = 0;
     let ok = true;
     for (const w of words) {
       if (title.includes(w)) score += 10;
-      else if (variants.includes(w)) score += 4;
+      else if (meta.includes(w)) score += 4;
       else if (desc.includes(w)) score += 1;
       else ok = false;
     }

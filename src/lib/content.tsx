@@ -1,61 +1,48 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-// Texts taken from the reference store (poedagarparis.com, English/Germany market).
+export const BRAND = 'PAWGUARD';
+
+// Statements here describe the shop's intent only; no unverified product or service promises.
+export const BENEFITS = [
+  { icon: 'snow', title: 'Für kalte und nasse Tage', text: 'Mäntel, Overalls und Pfotenschutz für Schnee, Regen und Streusalz.' },
+  { icon: 'move', title: 'Komfort unterwegs', text: 'Schnitte, bei denen Bewegungsfreiheit und Passform im Mittelpunkt stehen.' },
+  { icon: 'leash', title: 'Praktisch für jeden Spaziergang', text: 'Durchdachte Begleiter – vom Leuchtanhänger bis zum Trockenmantel.' },
+  { icon: 'ruler', title: 'Die passende Größe finden', text: 'Klare Größenhinweise und Messtipps auf jeder Produktseite.' },
+] as const;
+
+export const SIZE_GUIDE: ReactNode = (
+  <>
+    <p>So misst du deinen Hund am besten im Stehen und mit einem weichen Maßband:</p>
+    <ul>
+      <li><strong>Rückenlänge:</strong> vom Halsansatz bis zum Rutenansatz.</li>
+      <li><strong>Brustumfang:</strong> an der breitesten Stelle hinter den Vorderbeinen.</li>
+      <li><strong>Halsumfang:</strong> dort, wo normalerweise das Halsband sitzt.</li>
+    </ul>
+    <p>Die genauen Maßtabellen je Produkt folgen, sobald die Lieferanten feststehen.</p>
+  </>
+);
 
 export const FAQ: { q: string; a: ReactNode }[] = [
+  { q: 'Wie finde ich die richtige Größe?', a: SIZE_GUIDE },
   {
-    q: 'How do I know if my watch will fit me perfectly?',
+    q: 'Sind die Produkte schon bestellbar?',
     a: (
-      <>
-        <p>We've thought of everything to ensure your watch fits perfectly as soon as you receive it:</p>
-        <ul>
-          <li>Each model features an easily adjustable strap to comfortably fit your wrist.</li>
-          <li>We include a practical and discreet tool that allows you to adjust your strap with ease, without the need to visit a jeweler.</li>
-          <li>With clear instructions provided, you can adjust your watch in just a few minutes.</li>
-        </ul>
-        <p>✨ So, your Poedagar will be ready to adorn your wrist right out of the box.</p>
-      </>
+      <p>
+        Noch nicht. PAWGUARD befindet sich im Aufbau. Alle Produkte sind <strong>Beispielprodukte</strong>, und der Checkout ist eine Demo: Es wird nichts berechnet und nichts versendet.
+      </p>
     ),
   },
   {
-    q: 'How long will it take for my watch to be delivered?',
-    a: (
-      <>
-        <p>Your order will be prepared and shipped with the utmost care.</p>
-        <p>Delivery is fast, between <strong>3 to 7 working days</strong>, depending on your location.</p>
-        <p>We are committed to ensuring that your Poedagar watch reaches you as quickly as possible, carefully packaged in its case.</p>
-      </>
-    ),
+    q: 'Wie lange dauert die Lieferung und was kostet der Versand?',
+    a: <p>Versandkosten und Lieferzeiten werden festgelegt, sobald Lieferanten und Versanddienstleister feststehen. Sie werden vor jeder Bestellung klar angezeigt.</p>,
   },
   {
-    q: 'What warranty do you offer for your watches?',
+    q: 'Wie erreiche ich euch?',
     a: (
-      <>
-        <p>At Poedagar®, your satisfaction is our priority. That's why we offer:</p>
-        <ul>
-          <li>A 1-year international warranty covering any manufacturing defect or issue related to watchmaking craftsmanship. If a problem arises during this period, we will repair or replace your watch free of charge.</li>
-          <li>A 14-day satisfaction or your money back policy: if your watch doesn't suit you, you can return it and receive a full refund.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    q: 'How can we reach you?',
-    a: (
-      <>
-        <p>📞 Our customer service is always available for you. From 10 AM to 6 PM, Monday to Friday.</p>
-        <p>Our team can be reached by phone, WhatsApp, or via <Link to="/pages/contact">our contact form</Link> to assist you every step of the way.</p>
-      </>
+      <p>
+        Über unser <Link to="/pages/contact">Kontaktformular</Link>. In der Demo werden Nachrichten nur in deinem Browser gespeichert und nicht versendet.
+      </p>
     ),
   },
 ];
-
-export const COMMITMENTS = [
-  { icon: 'truck', title: 'Free delivery', text: 'Free delivery is available for eligible destinations. Estimated delivery times and any applicable charges are shown before you place your order.' },
-  { icon: 'shield', title: 'Money-back guarantee', text: 'Not satisfied? You can exercise your right of withdrawal within 14 days of receipt, without giving a reason. For our Buy 1, Get 1 Free offer, direct return shipping costs are your responsibility under our Terms and Conditions.' },
-  { icon: 'chat', title: "We're here to help", text: 'Our team is here to help before, during and after your purchase.' },
-  { icon: 'lock', title: 'Secure payment', text: 'Your payments are processed securely. 3D Secure authentication may be required depending on the payment method.' },
-  { icon: 'award', title: '2-year legal warranty', text: 'Your watches benefit from the two-year statutory guarantee of conformity, in accordance with applicable law.' },
-  { icon: 'star', title: 'Thoughtful design', text: 'Distinctive watch designs with attention to detail and finishes.' },
-] as const;
