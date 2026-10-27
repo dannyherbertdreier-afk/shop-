@@ -1,0 +1,27 @@
+type P = { size?: number };
+const base = (size = 22) => ({ width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true });
+
+export const IconBag = ({ size }: P) => (<svg {...base(size)}><path d="M5 8h14l-1 12H6L5 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>);
+export const IconUser = ({ size }: P) => (<svg {...base(size)}><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg>);
+export const IconSearch = ({ size }: P) => (<svg {...base(size)}><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>);
+export const IconMenu = ({ size }: P) => (<svg {...base(size)}><path d="M3 7h18M3 12h18M3 17h18" /></svg>);
+export const IconClose = ({ size }: P) => (<svg {...base(size)}><path d="M6 6l12 12M18 6 6 18" /></svg>);
+export const IconChevron = ({ size, dir = 'down' }: P & { dir?: 'down' | 'left' | 'right' | 'up' }) => {
+  const r = { down: 0, left: 90, up: 180, right: -90 }[dir];
+  return (<svg {...base(size)} style={{ transform: `rotate(${r}deg)` }}><path d="m6 9 6 6 6-6" /></svg>);
+};
+export const IconPlus = ({ size }: P) => (<svg {...base(size)}><path d="M12 5v14M5 12h14" /></svg>);
+export const IconMinus = ({ size }: P) => (<svg {...base(size)}><path d="M5 12h14" /></svg>);
+export const IconArrow = ({ size }: P) => (<svg {...base(size)}><path d="M4 12h16M14 6l6 6-6 6" /></svg>);
+export const IconFilter = ({ size }: P) => (<svg {...base(size)}><path d="M3 6h18M6 12h12M10 18h4" /></svg>);
+export const IconTrash = ({ size }: P) => (<svg {...base(size)}><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" /></svg>);
+export const IconCartPlus = ({ size }: P) => (<svg {...base(size)}><path d="M5 8h14l-1 12H6L5 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /><path d="M12 11v6M9 14h6" /></svg>);
+export const IconGrid1 = ({ size }: P) => (<svg {...base(size)}><rect x="5" y="5" width="14" height="14" rx="2" /></svg>);
+export const IconGrid2 = ({ size }: P) => (<svg {...base(size)}><rect x="4" y="4" width="7" height="7" rx="1.5" /><rect x="13" y="4" width="7" height="7" rx="1.5" /><rect x="4" y="13" width="7" height="7" rx="1.5" /><rect x="13" y="13" width="7" height="7" rx="1.5" /></svg>);
+export const IconCheck = ({ size }: P) => (<svg {...base(size)}><path d="m5 12 5 5 9-10" /></svg>);
+export const IconTruck = ({ size }: P) => (<svg {...base(size)}><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7" /><circle cx="7" cy="18" r="1.8" /><circle cx="17" cy="18" r="1.8" /></svg>);
+export const IconShield = ({ size }: P) => (<svg {...base(size)}><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z" /><path d="m9 12 2 2 4-4" /></svg>);
+export const IconChat = ({ size }: P) => (<svg {...base(size)}><path d="M4 5h16v11H9l-5 4V5Z" /></svg>);
+export const IconLock = ({ size }: P) => (<svg {...base(size)}><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>);
+export const IconAward = ({ size }: P) => (<svg {...base(size)}><circle cx="12" cy="9" r="5" /><path d="m9 13-2 8 5-3 5 3-2-8" /></svg>);
+export const IconStar = ({ size }: P) => (<svg {...base(size)}><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z" /></svg>);
