@@ -1,11 +1,15 @@
-# Uhren-Shop – Demo-Nachbau (Referenz: poedagarparis.com)
+# PAWGUARD – Demo-Shop für Hunde-Winterbekleidung
 
-Klickbare E-Commerce-Webanwendung, nachgebaut nach dem Shop
-`https://poedagarparis.com/en-de` (Stand der Daten: 27.10.2026).
+Klickbarer Demo-Onlineshop für die Arbeitsmarke **PAWGUARD**: Hundemäntel,
+Pfotenschutz, Winter-Overalls und Winterzubehör für Hundebesitzer in Deutschland.
 
-> **Demo-Shop.** Es werden keine echten Bestellungen, Zahlungen, E-Mails oder
-> Lieferungen ausgelöst. Bestellungen, Warenkorb und Newsletter-Eintrag werden
-> nur im `localStorage` des jeweiligen Browsers gespeichert.
+> **Demo im Aufbau.** Alle Produkte sind Beispielprodukte mit Beispielpreisen.
+> Es werden keine echten Bestellungen, Zahlungen, E-Mails oder Lieferungen
+> abgewickelt. Warenkorb, Demo-Bestellungen und Newsletter-Eintrag liegen nur im
+> `localStorage` des jeweiligen Browsers. Rechtstexte sind Platzhalter.
+> „PAWGUARD“ ist ein Arbeitsname; die Markenverfügbarkeit ist nicht geprüft.
+
+Live-Vorschau (nach dem Merge in `main`): https://dannyherbertdreier-afk.github.io/shop-/
 
 ## Starten
 
@@ -13,79 +17,46 @@ Voraussetzung: Node.js 18+ (getestet mit Node 22).
 
 ```bash
 npm install
-npm run dev        # Entwicklungsserver, http://localhost:5173
-npm run build      # Produktions-Build nach dist/
-npm run preview    # Build ausliefern, http://localhost:4173
-npm test           # Unit-Tests (Preislogik, Suche/Filter, Validierung)
-npm run test:e2e   # Browser-Test (benötigt laufendes `npm run preview` und Playwright)
+npm run dev              # Entwicklungsserver, http://localhost:5173
+npm run build            # Produktions-Build nach dist/
+npm run preview          # Build ausliefern, http://localhost:4173
+npm test                 # Unit-Tests (Katalog, Suche/Filter, Warenkorb, Validierung)
+npm run test:e2e         # Browser-Test (benötigt laufendes `npm run preview` und Playwright)
+npm run sample:products  # Beispielprodukte neu erzeugen
 ```
 
-## Auf dem iPhone testen
-
-**Variante A – im selben WLAN (am einfachsten):**
-
-1. Auf dem Computer im Projektordner `npm install` und dann `npm run dev` ausführen.
-2. Vite zeigt neben `Local:` auch eine Zeile `Network: http://192.168.x.x:5173/` an.
-3. iPhone ins selbe WLAN, diese `Network`-Adresse in Safari öffnen.
-4. Optional: Teilen → „Zum Home-Bildschirm“ für ein App-ähnliches Icon.
-
-Falls die Seite nicht lädt: Firewall des Computers für Port 5173 erlauben.
-
-**Variante B – öffentlich hosten:** `npm run build` erzeugt einen statischen
-Ordner `dist/`, der auf jedem Static-Host (z. B. GitHub Pages, Netlify)
-läuft (relative Pfade + Hash-Routing). Bitte vorher die Hinweise zu Marken- und
-Bildrechten unten beachten.
+Veröffentlicht wird automatisch per GitHub Actions (`.github/workflows/pages.yml`),
+sobald Änderungen in `main` landen.
 
 ## Funktionen
 
-- Startseite nach Referenz: Laufband, transparenter Header über dem Hero,
-  „Our Customers' Favorite Watches“-Karussell, Markengeschichte, Zusagen-Kacheln,
-  Featured Product, FAQ-Akkordeon, Newsletter, Footer mit Menüs
-- Navigation Desktop + mobiles Seitenmenü, Kollektionen „2026 Collection“ (alle 33
-  Produkte) und „Best Sellers“ (14 Produkte aus dem Startseiten-Karussell)
-- Filter (Verfügbarkeit, Farbe, Maximalpreis), Sortierung (7 Optionen),
-  1/2-Spalten-Umschalter mobil; Zustand steckt in der URL
-- Suche: Live-Overlay im Header + Ergebnisseite mit Filtern
-- Produktseite: Galerie (Wischen, Pfeile, Thumbnails), Varianten als
-  Bild-Swatches, ausverkaufte Varianten gesperrt, Angebots-Bundles wie im
-  Original („Buy 1, Get 1 Free“, „Buy 2, Get 2 Free“, „Mix & Match“ mit Menge)
-- „Buy 1, Get 1 Free“-Aktion im Warenkorb: alle Einheiten nach Preis sortiert,
-  jede zweite (günstigere) gratis – identische Logik auf Produktseite und im Warenkorb
-- Warenkorb (Drawer + Seite): Menge ändern, entfernen, leeren, persistent über Reload
-- Demo-Checkout mit Validierung (E-Mail, Pflichtfelder, PLZ je Land),
-  Bestellbestätigung, „Track my order“, „My orders“
-- Kontaktformular mit Validierung, FAQ/About/Returns-Seiten, Policy-Platzhalter, 404
+- Startseite: Hero, Vorteile, Kategorien, ausgewählte Produkte, Über-uns-Bereich, FAQ
+- Kollektionen: Winterkollektion + Hundemäntel, Pfotenschutz, Winter-Overalls, Winterzubehör
+- Filter (Kategorie, Größe, Farbe, Höchstpreis, Verfügbarkeit), Sortierung, 1/2-Spalten-Ansicht mobil
+- Suche (Overlay mit Sofortergebnissen + Ergebnisseite), berücksichtigt Umlaute
+- Produktseite: Bildergalerie, Farb- und Größenauswahl (Größe muss bewusst gewählt werden),
+  Menge, Größenhilfe, klar gekennzeichnete Beispielprodukte und -preise
+- Warenkorb (Seitenleiste + Seite), Demo-Kasse mit Validierung, Bestätigung, Bestellverfolgung
+- Kontaktformular, FAQ, Über uns, Versand/Rückgabe- und Rechtsseiten als Platzhalter, Bildnachweise
 
-## Datenpflege
+## Produktdaten pflegen
 
-Produktdaten liegen in `src/data/products.json` und wurden aus dem öffentlichen
-Shopify-Endpunkt `/products.json` des Referenzshops erzeugt:
+Die Beispielprodukte stehen in `scripts/sample-products.mjs` (Name, Kategorie, Preis,
+Farben, Größen, Bilder, Texte). Nach Änderungen `npm run sample:products` ausführen;
+das Skript erzeugt `src/data/products.json` mit allen Varianten (Farbe × Größe).
 
-```bash
-curl -L "https://poedagarparis.com/en-de/products.json?limit=250" -o scripts/source/products.json
-npm run import:products
-```
+Kategorien und Kollektionen: `src/lib/catalog.ts`. Texte für FAQ/Vorteile: `src/lib/content.tsx`.
 
-Das Skript bereinigt die Beschreibungs-HTML (nur einfache Tags) und setzt die
-Best-Seller-Reihenfolge. Bilder werden direkt vom Shopify-CDN des Originals geladen.
+## Bilder und Lizenzen
 
-## Aufbau
+Fotos liegen in `public/images/` und stammen von Wikimedia Commons (CC0, CC BY 3.0,
+CC BY-SA 4.0). Urheber, Lizenz und Quelle stehen in `src/data/image-credits.json` und
+werden im Shop unter „Bildnachweise“ angezeigt. Die Fotos sind Beispielmotive, nicht die
+angebotenen Produkte. Produkte ohne Foto zeigen bewusst „Produktbild folgt“.
 
-- `src/lib/` – Katalog/Filter/Suche, Preislogik, Validierung, Texte
-- `src/state/ShopContext.tsx` – Warenkorb, Bestellungen, UI-Zustand
-- `src/components/`, `src/pages/` – UI
-- `tests/` – Unit-Tests (Vitest) und Browser-Test (Playwright)
+## Offene Punkte für spätere Phasen
 
-## Bewusst nicht übernommen / Einschränkungen
-
-- **Marken- und Bildrechte:** Name, Produktfotos und Texte gehören dem
-  Referenzshop. Für eine öffentliche oder kommerzielle Nutzung braucht es
-  eigene Rechte bzw. eigene Inhalte. Das Logo ist als Schrift nachgestellt,
-  nicht als Originaldatei kopiert.
-- Keine echte Zahlungsanbindung, kein Kundenkonto, kein Versand.
-- Countdown-Timer („offer expires in …“), Klarna-Ratenhinweis und
-  Bewertungszahlen (z. B. „4.8/5 · 2,841“, „13,618+ customers“) wurden **nicht**
-  übernommen, da sie im Nachbau nicht belegbar bzw. nicht funktional wären.
-- Rechtstexte (Datenschutz, AGB, Impressum …) sind Platzhalter.
-- Blog und Währungs-/Sprachumschalter des Originals fehlen (Anzeige fest EUR/EN).
-- Farbfilter-Gruppen sind aus Variantennamen abgeleitet (z. B. „Black Gold“ → Black + Gold).
+- Rechtstexte (Impressum, Datenschutz, AGB, Widerruf) und Unternehmensdaten
+- Echte Lieferanten, Produktdaten, Maßtabellen, Versand- und Rückgabebedingungen
+- Echte Zahlungsabwicklung (z. B. über ein Shop-System)
+- Markenrecherche für „PAWGUARD“
