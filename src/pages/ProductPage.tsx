@@ -21,7 +21,8 @@ function Gallery({ product }: { product: Product }) {
     const el = track.current;
     if (!el) return;
     const n = Math.max(0, Math.min(images.length - 1, i));
-    el.scrollTo({ left: n * el.clientWidth, behavior: 'smooth' });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollTo({ left: n * el.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
   };
 
   return (
@@ -47,7 +48,7 @@ function Gallery({ product }: { product: Product }) {
       {images.length > 1 && (
         <div className="gallery-thumbs">
           {images.map((src, i) => (
-            <button key={i} className={i === index ? 'on' : ''} onClick={() => go(i)} aria-label={`Bild ${i + 1} anzeigen`}>
+            <button key={i} className={i === index ? 'on' : ''} onClick={() => go(i)} aria-label={`Bild ${i + 1} anzeigen`} aria-current={i === index}>
               <Img src={src} alt="" width={160} />
             </button>
           ))}
@@ -154,7 +155,7 @@ function ProductView({ product }: { product: Product }) {
           <div className="buy-row">
             <QtyStepper value={qty} onChange={setQty} label={product.title} />
             <button className="btn btn-lg buy-btn" onClick={addToCart} disabled={!available || adding}>
-              {!available ? 'Nicht verfügbar' : adding ? <span className="spinner" aria-label="Wird hinzugefügt" /> : (<><IconBag size={18} /> In den Warenkorb</>)}
+              {!available ? 'Nicht verfügbar' : adding ? <span className="spinner" role="status" aria-label="Wird hinzugefügt" /> : (<><IconBag size={18} /> In den Warenkorb</>)}
             </button>
           </div>
           <p className="demo-hint">Demo-Shop: Es wird nichts berechnet und nichts versendet.</p>

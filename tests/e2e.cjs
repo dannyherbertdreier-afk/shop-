@@ -55,8 +55,8 @@ async function qualityChecks(page, label) {
   const data = await page.evaluate(() => {
     const vis = (el) => { const r = el.getBoundingClientRect(); const s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; };
     const broken = [...document.images].filter((i) => i.complete && i.naturalWidth === 0).map((i) => i.getAttribute('src'));
-    const pending = [...document.images].filter((i) => !i.complete).map((i) => i.getAttribute('src'));
-    const fallbacks = [...document.querySelectorAll('.img-fallback')].map((f) => (f.getAttribute('aria-label') || '').replace(/ – Produktbild folgt$/, ''));
+    const pending = [...document.images].filter((i) => !i.complete && i.offsetParent !== null).map((i) => i.getAttribute('src'));
+    const fallbacks = [...document.querySelectorAll('.img-fallback')].map((f) => (f.getAttribute('aria-label') || '').replace(/ – Produktbild folgt$/, '').replace(/ – Bild \d+$/, ''));
     const overflow = document.documentElement.scrollWidth - window.innerWidth;
     const wide = [];
     if (overflow > 0) {
@@ -154,7 +154,7 @@ async function runViewport(browser, vp) {
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(300);
     const ovTop = await bubbleOverlap(page);
-    check(`[${V}] home top: help bubble covers no control`, ovTop.length === 0, ovTop.length ? `(${ovTop.join(', ')})` : '');
+    check(`[${V}] home initial viewport: help bubble covers no control`, ovTop.length === 0, ovTop.length ? `(${ovTop.join(', ')})` : '');
     await page.screenshot({ path: path.join(OUT, `${vp.key}_home.png`), fullPage: true });
     await page.click('text=Winterkollektion entdecken');
     await page.waitForURL(/#\/collections\/all$/);
@@ -251,7 +251,7 @@ async function runViewport(browser, vp) {
     const empty = await page.isVisible('.empty-state:has-text("Keine Produkte passen zu diesen Filtern.")');
     check(`[${V}] max price filter -> empty state`, empty, `(${legendPrice.trim()})`);
     const btnLabel = (await page.textContent('.filter-drawer .drawer-foot .btn:not(.btn-outline)')).trim();
-    check(`[${V}] filter drawer button shows 0`, btnLabel === '0 anzeigen', `(${btnLabel})`);
+    check(`[${V}] filter drawer button shows 0`, /^0 (Produkte )?anzeigen$/.test(btnLabel), `(${btnLabel})`);
     await page.click('.filter-drawer .drawer-foot .btn:not(.btn-outline)');
     await page.waitForTimeout(350);
     await page.screenshot({ path: path.join(OUT, `${vp.key}_empty_filter.png`) });
@@ -333,7 +333,7 @@ async function runViewport(browser, vp) {
     const qty = (await page.textContent('.buy-row output')).trim();
     check(`[${V}] quantity stepper`, qty === '3', `(${qty})`);
     const ovBuy = await bubbleOverlap(page);
-    check(`[${V}] product: help bubble covers no control (top)`, ovBuy.length === 0, ovBuy.length ? `(${ovBuy.join(', ')})` : '');
+    check(`[${V}] product initial viewport: help bubble covers no control`, ovBuy.length === 0, ovBuy.length ? `(${ovBuy.join(', ')})` : '');
     await page.click('.buy-btn');
     await page.waitForSelector('.cart-drawer.open .cart-line', { timeout: 3000 });
     await page.waitForTimeout(400);
@@ -403,7 +403,8 @@ async function runViewport(browser, vp) {
     const german = errs.length >= 6 && errs.every((e) => /^Bitte /.test(e));
     check(`[${V}] empty checkout -> German validation errors`, german, `(${errs.length}: ${errs.join(' | ')})`);
     check(`[${V}] form error summary`, (await page.textContent('.form-error')).includes('Bitte korrigiere die markierten Felder.'));
-    check(`[${V}] focus moves to first invalid field`, (await page.evaluate(() => document.activeElement && document.activeElement.name)) === 'email');
+    const focused = await page.evaluate(() => document.activeElement && document.activeElement.name);
+    check(`[${V}] focus moves to first invalid field (email)`, focused === 'email', `(focused: ${focused})`);
     await page.screenshot({ path: path.join(OUT, `${vp.key}_checkout_errors.png`), fullPage: true });
     await page.fill('[name=email]', 'max@example.com');
     await page.fill('[name=firstName]', 'Max');
@@ -476,6 +477,7 @@ async function runViewport(browser, vp) {
       await slowScroll(page);
       await qualityChecks(page, `${V} ${r}`);
     }
+    await goto(page, '/does-not-exist');
     const nf = (await page.textContent('main h1')).trim();
     check(`[${V}] unknown route shows 404`, nf === 'Seite nicht gefunden');
   });

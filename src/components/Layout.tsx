@@ -5,6 +5,7 @@ import { IconBag, IconChat, IconClose, IconMenu, IconSearch, IconUser } from './
 import { CartDrawer } from './CartDrawer';
 import { SearchOverlay } from './SearchOverlay';
 import { Footer } from './Footer';
+import { useDialog } from '../hooks/useDialog';
 
 export const NAV = [
   { to: '/collections/all', label: 'Winterkollektion' },
@@ -33,19 +34,17 @@ export function Layout({ children }: { children: ReactNode }) {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
-    document.body.classList.toggle('no-scroll', menuOpen);
-  }, [menuOpen]);
+  const menuPanel = useDialog<HTMLElement>(menuOpen, () => setMenuOpen(false));
 
   return (
     <>
       <a href="#main" className="skip-link">Zum Inhalt springen</a>
       <div className="topbar" role="note">
-        Demo-Shop im Aufbau · Beispielprodukte · keine echten Bestellungen
+        Demo-Shop · Beispielprodukte · keine echten Bestellungen
       </div>
       <header className="header">
         <div className="header-inner">
-          <button className="icon-btn only-mobile" aria-label="Menü öffnen" onClick={() => setMenuOpen(true)}>
+          <button className="icon-btn only-mobile" aria-label="Menü öffnen" aria-expanded={menuOpen} aria-controls="menu-drawer" onClick={() => setMenuOpen(true)}>
             <IconMenu />
           </button>
           <Logo />
@@ -63,7 +62,7 @@ export function Layout({ children }: { children: ReactNode }) {
             <Link className="icon-btn only-desktop-sm" to="/account" aria-label="Meine Bestellungen">
               <IconUser />
             </Link>
-            <button className="icon-btn cart-btn" aria-label={`Warenkorb, ${totals.itemCount} Artikel`} onClick={() => setCartOpen(true)}>
+            <button className="icon-btn cart-btn" aria-label={`Warenkorb, ${totals.itemCount} Artikel`} aria-controls="cart-drawer" onClick={() => setCartOpen(true)}>
               <IconBag />
               {totals.itemCount > 0 && <span className="cart-count">{totals.itemCount}</span>}
             </button>
@@ -72,10 +71,10 @@ export function Layout({ children }: { children: ReactNode }) {
       </header>
 
       <div className={`drawer-backdrop ${menuOpen ? 'show' : ''}`} onClick={() => setMenuOpen(false)} />
-      <aside className={`menu-drawer ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen} aria-label="Menü">
+      <aside ref={menuPanel} id="menu-drawer" className={`menu-drawer ${menuOpen ? 'open' : ''}`} aria-hidden={!menuOpen} aria-label="Menü" role="dialog" aria-modal="true">
         <div className="drawer-head">
           <Logo dark />
-          <button className="icon-btn" aria-label="Menü schließen" onClick={() => setMenuOpen(false)}>
+          <button className="icon-btn" aria-label="Menü schließen" onClick={() => setMenuOpen(false)} data-autofocus>
             <IconClose />
           </button>
         </div>

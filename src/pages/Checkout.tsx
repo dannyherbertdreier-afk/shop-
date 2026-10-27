@@ -6,6 +6,7 @@ import type { Address, Order } from '../lib/types';
 import { Img } from '../components/Img';
 import { formatMoney } from '../lib/money';
 import { CartSummary } from '../components/CartLines';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const PAYMENT_METHODS = [
   { id: 'demo-card', label: 'Kreditkarte (Demo – es werden keine Kartendaten abgefragt)' },
@@ -48,6 +49,7 @@ export function Checkout() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string>();
+  usePageTitle('Kasse');
 
   const set = (k: keyof FormState, v: string | boolean) => {
     setForm((f) => ({ ...f, [k]: v }));

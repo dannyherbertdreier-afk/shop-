@@ -6,6 +6,7 @@ import { formatMoney } from '../lib/money';
 import { COUNTRIES, validateEmail } from '../lib/validation';
 import { Img } from '../components/Img';
 import { IconCheck } from '../components/Icons';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 function OrderDetails({ order }: { order: Order }) {
   const a = order.address;
@@ -48,6 +49,7 @@ export function OrderConfirmation() {
   const { number } = useParams();
   const { orders } = useShop();
   const order = orders.find((o) => o.number === number);
+  usePageTitle('Bestellbestätigung');
   if (!order) {
     return (
       <div className="page container empty-state">
@@ -80,6 +82,7 @@ export function TrackOrder() {
   const [email, setEmail] = useState('');
   const [result, setResult] = useState<Order | null | undefined>(undefined);
   const [error, setError] = useState<string>();
+  usePageTitle('Bestellung verfolgen');
   return (
     <div className="page container narrow">
       <h1 className="page-title">Bestellung verfolgen</h1>
@@ -119,6 +122,7 @@ export function TrackOrder() {
 
 export function Account() {
   const { orders } = useShop();
+  usePageTitle('Meine Bestellungen');
   return (
     <div className="page container narrow">
       <h1 className="page-title">Meine Bestellungen</h1>

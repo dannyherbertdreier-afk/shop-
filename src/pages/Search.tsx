@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { searchProducts } from '../lib/catalog';
 import { ProductListing } from '../components/ProductToolbar';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export function Search() {
   const [params, setParams] = useSearchParams();
@@ -9,6 +10,7 @@ export function Search() {
   const [input, setInput] = useState(q);
   useEffect(() => setInput(q), [q]);
   const results = searchProducts(q);
+  usePageTitle(q.trim() ? `Suche: ${q.trim()}` : 'Suche');
   return (
     <div className="page container">
       <h1 className="page-title">Suche</h1>

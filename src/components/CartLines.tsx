@@ -12,7 +12,7 @@ export function CartLines({ onNavigate }: { onNavigate?: () => void }) {
       {lines.map((l) => (
         <li key={l.variantId} className="cart-line">
           <Link to={`/products/${l.handle}`} onClick={onNavigate} className="cart-line-img">
-            <Img src={l.variant.image ?? l.product.images[0]} alt={l.product.title} width={200} />
+            <Img src={l.variant.image ?? l.product.images[0]} alt="" width={200} />
           </Link>
           <div className="cart-line-info">
             <Link to={`/products/${l.handle}`} onClick={onNavigate} className="cart-line-title">

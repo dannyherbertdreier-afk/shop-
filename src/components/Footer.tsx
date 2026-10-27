@@ -19,8 +19,10 @@ function Newsletter() {
   const [done, setDone] = useState(false);
   return (
     <section className="newsletter" aria-labelledby="nl-title">
-      <h2 id="nl-title">Bereit für den Winter?</h2>
-      <p>Trag dich ein, und wir sagen Bescheid, sobald PAWGUARD startet.</p>
+      <div>
+        <h2 id="nl-title">Bereit für den Winter?</h2>
+        <p>Trag dich ein, und wir sagen Bescheid, sobald PAWGUARD startet.</p>
+      </div>
       {done ? (
         <p className="success" role="status">Danke! Deine Adresse ist vorgemerkt – in dieser Demo nur in deinem Browser, es werden keine E-Mails verschickt.</p>
       ) : (

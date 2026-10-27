@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { FAQ, SIZE_GUIDE } from '../lib/content';
 import { Accordion } from '../components/Accordion';
@@ -6,12 +6,8 @@ import { POLICIES } from '../components/Footer';
 import { validateEmail } from '../lib/validation';
 import credits from '../data/image-credits.json';
 import { NotFound } from './NotFound';
+import { usePageTitle } from '../hooks/usePageTitle';
 
-function usePageTitle(title: string) {
-  useEffect(() => {
-    document.title = `${title} – PAWGUARD`;
-  }, [title]);
-}
 
 function Placeholder({ children }: { children: ReactNode }) {
   return <p className="demo-banner" role="note"><strong>Platzhalter – noch nicht verbindlich.</strong> {children}</p>;

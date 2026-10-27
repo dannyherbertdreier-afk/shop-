@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useShop } from '../state/ShopContext';
 import { CartLines, CartSummary } from '../components/CartLines';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 export function Cart() {
   const { lines, clearCart } = useShop();
+  usePageTitle('Warenkorb');
   return (
     <div className="page container">
       <h1 className="page-title">Warenkorb</h1>

@@ -21,14 +21,13 @@ export function ProductCard({ product }: { product: Product }) {
           <Img src={product.images[0]} alt={product.images[0] ? `Symbolbild zu ${product.title}` : product.title} width={600} />
           {product.images[1] && <Img src={product.images[1]} alt="" width={600} className="card-hover" />}
           {!isAvailable(product) && <span className="badge badge-dark">Nicht verfügbar</span>}
-          {product.isExample && <span className="badge badge-sample">Beispielprodukt</span>}
         </div>
         <div className="card-info">
           <span className="card-category">{categoryTitle(product.category)}</span>
           <h3 className="card-title">{product.title}</h3>
           {summary && <span className="card-variants">{summary}</span>}
           <Price price={shown.price} compareAt={shown.compareAtPrice} from={hasPriceRange(product)} />
-          {product.isExample && <span className="card-price-note">Beispielpreis</span>}
+          {product.isExample && <span className="card-price-note">Beispielprodukt · Beispielpreis</span>}
         </div>
       </Link>
     </article>

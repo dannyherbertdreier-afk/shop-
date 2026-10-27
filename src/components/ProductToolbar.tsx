@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useDialog } from '../hooks/useDialog';
 import { useSearchParams } from 'react-router-dom';
 import type { Product } from '../lib/types';
 import { applyFilters, CATEGORIES, minPrice, optionValues, SORT_OPTIONS, sortProducts, type Filters, type SortKey } from '../lib/catalog';
@@ -22,6 +24,7 @@ export function ProductListing({ items, showCategoryFilter = false }: { items: P
   const [drawer, setDrawer] = useState(false);
   const [cols, setCols] = useState<1 | 2>(() => load('demo-shop:grid', 2));
   useEffect(() => save('demo-shop:grid', cols), [cols]);
+  const filterPanel = useDialog<HTMLElement>(drawer, () => setDrawer(false));
 
   const sort = (params.get('sort') as SortKey) || 'featured';
   const filters: Filters = {
@@ -60,7 +63,7 @@ export function ProductListing({ items, showCategoryFilter = false }: { items: P
   return (
     <>
       <div className="toolbar">
-        <button className="toolbar-btn" onClick={() => setDrawer(true)}>
+        <button className="toolbar-btn" aria-expanded={drawer} aria-controls="filter-drawer" onClick={() => setDrawer(true)}>
           <IconFilter size={18} /> Filtern {activeCount > 0 && <span className="chip-count">{activeCount}</span>}
         </button>
         <label className="sort">
@@ -84,18 +87,22 @@ export function ProductListing({ items, showCategoryFilter = false }: { items: P
           <button className="btn" onClick={clear}>Filter zurücksetzen</button>
         </div>
       ) : (
+        <>
+        <h2 className="visually-hidden">Produkte</h2>
         <div className={`grid grid-m${cols}`}>
           {shown.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
+        </>
       )}
 
+      {createPortal(<>
       <div className={`drawer-backdrop ${drawer ? 'show' : ''}`} onClick={() => setDrawer(false)} />
-      <aside className={`filter-drawer ${drawer ? 'open' : ''}`} aria-hidden={!drawer} aria-label="Filter">
+      <aside ref={filterPanel} id="filter-drawer" className={`filter-drawer ${drawer ? 'open' : ''}`} aria-hidden={!drawer} aria-label="Filter" role="dialog" aria-modal="true">
         <div className="drawer-head">
           <h2>Filtern</h2>
-          <button className="icon-btn" aria-label="Filter schließen" onClick={() => setDrawer(false)}><IconClose /></button>
+          <button className="icon-btn" aria-label="Filter schließen" onClick={() => setDrawer(false)} data-autofocus><IconClose /></button>
         </div>
         <div className="drawer-body filter-body">
           {showCategoryFilter && (
@@ -158,6 +165,7 @@ export function ProductListing({ items, showCategoryFilter = false }: { items: P
           <button className="btn" onClick={() => setDrawer(false)}>{shown.length} {shown.length === 1 ? 'Produkt' : 'Produkte'} anzeigen</button>
         </div>
       </aside>
+      </>, document.body)}
     </>
   );
 }

@@ -30,7 +30,7 @@ const items = [
     text: '<p>Eine wattierte Steppweste für frostige Tage und kurze Runden im Schnee.</p>',
   },
   {
-    handle: 'pfotenschuhe-trail', title: 'Pfotenschuhe „Trail“ (4er-Set)', category: 'pfotenschutz', price: 39.9,
+    handle: 'pfotenschuhe-trail', title: 'Pfotenschuhe „Trail“ (4er‑Set)', category: 'pfotenschutz', price: 39.9,
     colors: ['Anthrazit'], sizes: ['S', 'M', 'L', 'XL'], images: [], featured: 3, tags: ['schuhe', 'streusalz', 'pfoten'],
     summary: 'Vier Schuhe für Wege mit Schnee und Streusalz.',
     text: '<p>Ein Set aus vier Pfotenschuhen für Wege mit Schnee und Streusalz.</p><ul><li>Klettverschluss zum Anpassen</li></ul><p>Tipp: Gewöhne deinen Hund in Ruhe und zunächst drinnen an die Schuhe.</p>',

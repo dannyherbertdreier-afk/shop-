@@ -83,7 +83,8 @@ export function sortProducts(list: Product[], key: SortKey): Product[] {
     case 'title-desc':
       return out.sort((a, b) => b.title.localeCompare(a.title, 'de'));
     default:
-      return out.sort((a, b) => rank(a) - rank(b));
+      // Products with photos first, then by editorial rank.
+      return out.sort((a, b) => Number(!a.images.length) - Number(!b.images.length) || rank(a) - rank(b));
   }
 }
 

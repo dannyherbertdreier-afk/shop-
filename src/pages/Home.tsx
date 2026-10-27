@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CATEGORIES, products, sortProducts } from '../lib/catalog';
 import { BENEFITS, FAQ } from '../lib/content';
+import { usePageTitle } from '../hooks/usePageTitle';
 import { ProductCard } from '../components/ProductCard';
 import { Accordion } from '../components/Accordion';
 import { Img } from '../components/Img';
@@ -11,9 +11,7 @@ const BENEFIT_ICONS = { snow: IconSnow, move: IconMove, leash: IconLeash, ruler:
 
 export function Home() {
   const featured = sortProducts(products.filter((p) => p.featuredRank != null), 'featured').slice(0, 4);
-  useEffect(() => {
-    document.title = 'PAWGUARD – Winterbegleiter für Hunde';
-  }, []);
+  usePageTitle('');
   const counts = new Map(CATEGORIES.map((c) => [c.handle, products.filter(c.filter).length]));
 
   return (
