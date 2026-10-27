@@ -1,25 +1,32 @@
 export interface Variant {
   id: string;
-  title: string;
+  title: string; // e.g. "Waldgrün / M"
+  options: string[]; // values in the order of Product.options
   price: number; // cents
   compareAtPrice: number | null; // cents
   available: boolean;
   image: string | null;
 }
 
+export interface ProductOption {
+  name: string; // e.g. "Farbe", "Größe"
+  values: string[];
+}
+
 export interface Product {
   id: string;
   handle: string;
   title: string;
-  vendor: string;
-  type: string;
+  category: string; // collection handle
   tags: string[];
-  createdAt: string;
+  /** Sample data: not a real supplier product. */
+  isExample: boolean;
+  summary: string;
   descriptionHtml: string;
-  optionName: string;
+  options: ProductOption[];
   images: string[];
   variants: Variant[];
-  bestsellerRank: number | null;
+  featuredRank: number | null;
 }
 
 export interface CartLine {
