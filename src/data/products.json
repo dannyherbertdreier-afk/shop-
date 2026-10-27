@@ -321,9 +321,7 @@
         ]
       }
     ],
-    "images": [
-      "images/hund-schneejacke.jpg"
-    ],
+    "images": [],
     "variants": [
       {
         "id": "steppweste-frost-1",
@@ -335,7 +333,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-2",
@@ -347,7 +345,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-3",
@@ -359,7 +357,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-4",
@@ -371,7 +369,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-5",
@@ -383,7 +381,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-6",
@@ -395,7 +393,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-7",
@@ -407,7 +405,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       },
       {
         "id": "steppweste-frost-8",
@@ -419,7 +417,7 @@
         "price": 5490,
         "compareAtPrice": null,
         "available": true,
-        "image": "images/hund-schneejacke.jpg"
+        "image": null
       }
     ],
     "featuredRank": null

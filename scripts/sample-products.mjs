@@ -25,7 +25,7 @@ const items = [
   {
     handle: 'steppweste-frost', title: 'Steppweste „Frost“', category: 'hundemaentel', price: 54.9,
     colors: ['Eisblau', 'Anthrazit'], sizes: ['XS', 'S', 'M', 'L'],
-    images: ['images/hund-schneejacke.jpg'], featured: null, tags: ['weste', 'stepp'],
+    images: [], featured: null, tags: ['weste', 'stepp'],
     summary: 'Wattierte Weste für frostige Tage.',
     text: '<p>Eine wattierte Steppweste für frostige Tage und kurze Runden im Schnee.</p>',
   },
