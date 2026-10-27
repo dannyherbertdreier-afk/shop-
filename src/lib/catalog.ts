@@ -19,7 +19,7 @@ export const CATEGORIES: Collection[] = [
 ];
 
 export const collections: Collection[] = [
-  { handle: 'all', title: 'Winterkollektion', intro: 'Alle Winterbegleiter für deinen Hund auf einen Blick.', image: 'images/hund-schneejacke.jpg', filter: () => true },
+  { handle: 'all', title: 'Winterkollektion', intro: 'Alle Winterbegleiter für deinen Hund auf einen Blick.', image: 'images/winterwald-spaziergang.jpg', filter: () => true },
   ...CATEGORIES,
 ];
 

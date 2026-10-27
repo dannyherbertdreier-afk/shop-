@@ -18,7 +18,7 @@ export function Home() {
     <>
       <section className="hero">
         <div className="hero-media">
-          <Img src="images/hund-schneejacke.jpg" alt="Hund in einer blauen Winterjacke steht im Schnee" width={1400} eager />
+          <Img src="images/winterwald-spaziergang.jpg" alt="Kleiner Hund im Mantel auf einem verschneiten Waldweg" width={1400} eager />
         </div>
         <div className="hero-content">
           <p className="eyebrow">Winterkollektion</p>

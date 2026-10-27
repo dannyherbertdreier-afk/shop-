@@ -27,7 +27,7 @@ export function ProductCard({ product }: { product: Product }) {
           <h3 className="card-title">{product.title}</h3>
           {summary && <span className="card-variants">{summary}</span>}
           <Price price={shown.price} compareAt={shown.compareAtPrice} from={hasPriceRange(product)} />
-          {product.isExample && <span className="card-price-note">Beispielprodukt · Beispielpreis</span>}
+          {product.isExample && <span className="card-price-note">Beispielprodukt · Beispielpreis{product.images.length > 0 && ' · Symbolbild'}</span>}
         </div>
       </Link>
     </article>

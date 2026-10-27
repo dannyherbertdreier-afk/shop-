@@ -6,7 +6,7 @@ export const BRAND = 'PAWGUARD';
 // Statements here describe the shop's intent only; no unverified product or service promises.
 export const BENEFITS = [
   { icon: 'snow', title: 'Für kalte und nasse Tage', text: 'Mäntel, Overalls und Pfotenschutz für Schnee, Regen und Streusalz.' },
-  { icon: 'move', title: 'Komfort unterwegs', text: 'Schnitte, bei denen Bewegungsfreiheit und Passform im Mittelpunkt stehen.' },
+  { icon: 'move', title: 'Komfort unterwegs', text: 'Bei der Auswahl sollen Bewegungsfreiheit und Passform im Mittelpunkt stehen.' },
   { icon: 'leash', title: 'Praktisch für jeden Spaziergang', text: 'Durchdachte Begleiter – vom Leuchtanhänger bis zum Trockenmantel.' },
   { icon: 'ruler', title: 'Die passende Größe finden', text: 'Messtipps für Rückenlänge, Brust- und Halsumfang – Maßtabellen folgen.' },
 ] as const;
