@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useShop } from '../state/ShopContext';
-import { IconBag, IconChat, IconClose, IconMenu, IconSearch, IconUser } from './Icons';
+import { IconBag, IconClose, IconMenu, IconSearch, IconUser } from './Icons';
 import { CartDrawer } from './CartDrawer';
 import { SearchOverlay } from './SearchOverlay';
 import { Footer } from './Footer';
@@ -92,11 +92,6 @@ export function Layout({ children }: { children: ReactNode }) {
 
       <main id="main">{children}</main>
       <Footer />
-
-      <Link to="/pages/contact" className="help-bubble" aria-label="Fragen? Schreib uns">
-        <IconChat size={20} />
-        <span className="help-text">Fragen?</span>
-      </Link>
 
       <CartDrawer />
       <SearchOverlay />

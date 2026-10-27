@@ -67,8 +67,9 @@ async function qualityChecks(page, label) {
     }
     const clipped = [];
     document.querySelectorAll('h1,h2,h3').forEach((h) => {
-      if (!vis(h)) return;
+      if (!vis(h) || h.closest('.visually-hidden')) return;
       const r = h.getBoundingClientRect();
+      if (r.width <= 1 || r.height <= 1) return;
       const why = [];
       if (h.scrollWidth > h.clientWidth + 1) why.push(`scrollWidth ${h.scrollWidth}>${h.clientWidth}`);
       if (r.right > window.innerWidth + 1 || r.left < -1) why.push(`outside viewport ${Math.round(r.left)}..${Math.round(r.right)}`);
@@ -259,6 +260,14 @@ async function runViewport(browser, vp) {
     n = await page.$$eval('.grid .card', (x) => x.length);
     check(`[${V}] empty-state reset restores list`, n === PRODUCTS.length && !page.url().includes('max='), `(${n})`);
 
+    if (await page.isVisible('.grid-toggle')) {
+      const colsOf = () => page.$eval('.grid', (g) => getComputedStyle(g).gridTemplateColumns.split(' ').length);
+      await page.click('.grid-toggle button[aria-label="Eine Spalte"]');
+      const one = await colsOf();
+      await page.click('.grid-toggle button[aria-label="Zwei Spalten"]');
+      const two = await colsOf();
+      check(`[${V}] grid toggle (1/2 columns) changes layout`, one === 1 && two === 2, `(Eine Spalte -> ${one} cols, Zwei Spalten -> ${two} cols)`);
+    }
     await page.selectOption('.sort select', { label: 'Preis aufsteigend' });
     await page.waitForTimeout(200);
     const prices = (await page.$$eval('.grid .card .price-now', (x) => x.map((e) => e.textContent))).map(euro);
@@ -334,6 +343,23 @@ async function runViewport(browser, vp) {
     check(`[${V}] quantity stepper`, qty === '3', `(${qty})`);
     const ovBuy = await bubbleOverlap(page);
     check(`[${V}] product initial viewport: help bubble covers no control`, ovBuy.length === 0, ovBuy.length ? `(${ovBuy.join(', ')})` : '');
+    // scan the whole page: is the (possibly sticky) buy button ever covered by the help bubble?
+    const covered = await page.evaluate(async () => {
+      const b = document.querySelector('.help-bubble'); const btn = document.querySelector('.buy-btn');
+      const hits = [];
+      if (!b) return hits;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      for (let y = 0; y <= max; y += 100) {
+        scrollTo(0, y); await new Promise((r) => setTimeout(r, 30));
+        const br = b.getBoundingClientRect(); const r = btn.getBoundingClientRect();
+        if (!br.width || r.bottom < 0 || r.top > innerHeight) continue;
+        const ix = Math.min(r.right, br.right) - Math.max(r.left, br.left), iy = Math.min(r.bottom, br.bottom) - Math.max(r.top, br.top);
+        if (ix > 2 && iy > 2) hits.push(y);
+      }
+      scrollTo(0, 0);
+      return hits;
+    });
+    check(`[${V}] product: "In den Warenkorb" never covered by help bubble`, covered.length === 0, covered.length ? `(covered at scrollY ${covered.slice(0, 5).join(', ')}${covered.length > 5 ? ' …' : ''})` : '');
     await page.click('.buy-btn');
     await page.waitForSelector('.cart-drawer.open .cart-line', { timeout: 3000 });
     await page.waitForTimeout(400);

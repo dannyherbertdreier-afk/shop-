@@ -68,9 +68,9 @@ export function Checkout() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const errs: FormErrors = { ...validateAddress(form) };
+    // Keys in on-page order, so the first invalid field gets focus.
     const emailErr = validateEmail(form.email);
-    if (emailErr) errs.email = emailErr;
+    const errs: FormErrors = { ...(emailErr ? { email: emailErr } : {}), ...validateAddress(form) };
     if (!form.terms) errs.terms = 'Bitte bestätige den Hinweis, um fortzufahren';
     setErrors(errs);
     if (Object.keys(errs).length) {

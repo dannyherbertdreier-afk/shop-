@@ -74,7 +74,7 @@ export function ProductListing({ items, showCategoryFilter = false }: { items: P
             ))}
           </select>
         </label>
-        <div className="grid-toggle only-mobile">
+        <div className="grid-toggle only-phone">
           <button aria-label="Eine Spalte" aria-pressed={cols === 1} onClick={() => setCols(1)}><IconGrid1 size={18} /></button>
           <button aria-label="Zwei Spalten" aria-pressed={cols === 2} onClick={() => setCols(2)}><IconGrid2 size={18} /></button>
         </div>

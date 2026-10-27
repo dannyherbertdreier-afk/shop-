@@ -31,7 +31,7 @@ button:disabled { cursor: not-allowed; }
 input, select, textarea { font: inherit; color: inherit; }
 h1, h2, h3 { margin: 0; line-height: 1.2; font-family: var(--font-head); letter-spacing: -0.01em; }
 :focus-visible, .chip:focus-within { outline: 2px solid var(--forest); outline-offset: 2px; }
-.hero :focus-visible, .story :focus-visible, .footer :focus-visible, .topbar :focus-visible, .help-bubble:focus-visible { outline-color: #fff; }
+.hero :focus-visible, .story :focus-visible, .footer :focus-visible, .topbar :focus-visible { outline-color: #fff; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; scroll-behavior: auto !important; } }
 
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -49,6 +49,7 @@ h1, h2, h3 { margin: 0; line-height: 1.2; font-family: var(--font-head); letter-
 .only-desktop-sm { display: none !important; }
 @media (min-width: 600px) { .only-desktop-sm { display: inline-flex !important; } .container { padding: 0 24px; } }
 @media (min-width: 1024px) { .only-mobile { display: none !important; } }
+@media (min-width: 700px) { .only-phone { display: none !important; } }
 
 /* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px; background: var(--forest); color: #fff; font-weight: 600; font-size: 0.95rem; border: 2px solid var(--forest); transition: background 0.2s, border-color 0.2s, transform 0.15s; text-align: center; }
@@ -106,7 +107,8 @@ h1, h2, h3 { margin: 0; line-height: 1.2; font-family: var(--font-head); letter-
 .drawer-head h2 { font-size: 1.15rem; font-weight: 700; }
 .drawer-body { flex: 1; overflow-y: auto; padding: 8px 16px; -webkit-overflow-scrolling: touch; }
 .drawer-foot { padding: 16px; border-top: 1px solid var(--line); display: grid; gap: 10px; padding-bottom: max(16px, env(safe-area-inset-bottom)); background: var(--white); }
-.drawer-foot.two { grid-template-columns: 1fr 1fr; }
+.drawer-foot.two { grid-template-columns: auto 1fr; }
+.drawer-foot .btn { padding: 0 18px; white-space: nowrap; }
 .menu-links { display: flex; flex-direction: column; padding: 8px 0; }
 .menu-links a { padding: 15px 20px; font-size: 1.05rem; font-weight: 500; border-bottom: 1px solid var(--line); }
 .menu-links a.active { color: var(--forest); font-weight: 700; }
@@ -245,17 +247,13 @@ h1, h2, h3 { margin: 0; line-height: 1.2; font-family: var(--font-head); letter-
 .demo-note { font-size: 0.78rem; color: #9fa79e; margin: 32px 0 0; border-top: 1px solid #3a403a; padding-top: 18px; }
 @media (min-width: 900px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } .footer-brand { grid-column: auto; } .newsletter { display: grid; grid-template-columns: 1fr 420px; column-gap: 32px; align-items: center; padding: 28px 32px; } .newsletter p { margin-bottom: 0; } .newsletter form, .newsletter .success { grid-column: 2; grid-row: 1 / span 2; } }
 
-/* Help bubble */
-.help-bubble { position: fixed; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 20; display: inline-flex; align-items: center; gap: 8px; background: var(--forest); color: #fff; border-radius: 999px; padding: 12px; box-shadow: var(--shadow); }
-.help-text { display: none; font-size: 0.9rem; font-weight: 600; padding-right: 4px; }
-@media (max-width: 699px) { .help-bubble { display: none; } }
-@media (min-width: 700px) { .help-bubble { padding: 10px 16px; } .help-text { display: inline; } body { padding-bottom: 72px; } }
 
 /* Collection */
 .collection-hero { padding-top: 16px; padding-bottom: 8px; }
 .collection-hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); font-weight: 800; margin-top: 8px; }
 .collection-hero > p { color: var(--muted); margin: 6px 0 16px; }
-.category-pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.category-pills { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); padding-right: 32px; }
+@media (min-width: 900px) { .category-pills { -webkit-mask-image: none; mask-image: none; } }
 .category-pills::-webkit-scrollbar { display: none; }
 .category-pills a { flex: none; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); font-size: 0.88rem; font-weight: 500; }
 .category-pills a.on { background: var(--forest); border-color: var(--forest); color: #fff; }

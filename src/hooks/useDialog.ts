@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-const BACKGROUND = ['.topbar', 'header.header', '#main', 'footer.footer', '.help-bubble'];
+const BACKGROUND = ['.topbar', 'header.header', '#main', 'footer.footer'];
 
 /**
  * Modal behaviour for drawers/overlays: moves focus in, traps Tab, closes on Escape,
