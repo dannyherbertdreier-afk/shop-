@@ -13,9 +13,9 @@ export interface Collection {
 
 export const CATEGORIES: Collection[] = [
   { handle: 'hundemaentel', title: 'Hundemäntel', intro: 'Mäntel und Westen für kalte, nasse und windige Tage.', image: 'images/steppjacke-beagle.jpg', filter: (p) => p.category === 'hundemaentel' },
-  { handle: 'pfotenschutz', title: 'Pfotenschutz', intro: 'Schuhe, Socken und Pflege für Wege mit Schnee und Streusalz.', image: 'images/pfotenabdruck-schnee.jpg', filter: (p) => p.category === 'pfotenschutz' },
+  { handle: 'pfotenschutz', title: 'Pfotenschutz', intro: 'Schuhe, Socken und Pflege – für Wege mit Schnee und Streusalz und für drinnen danach.', image: 'images/pfotenabdruck-schnee.jpg', filter: (p) => p.category === 'pfotenschutz' },
   { handle: 'winter-overalls', title: 'Winter-Overalls', intro: 'Overalls, die auch die Beine bedecken.', image: 'images/ganzkoerperanzug.jpg', filter: (p) => p.category === 'winter-overalls' },
-  { handle: 'winterzubehoer', title: 'Winterzubehör', intro: 'Pullover, Licht, Leinen und alles für danach.', image: 'images/strickpullover-yorkies.jpg', filter: (p) => p.category === 'winterzubehoer' },
+  { handle: 'winterzubehoer', title: 'Winterzubehör', intro: 'Pullover, Leuchtanhänger, Leine und Trockenmantel – für unterwegs und danach.', image: 'images/strickpullover-yorkies.jpg', filter: (p) => p.category === 'winterzubehoer' },
 ];
 
 export const collections: Collection[] = [

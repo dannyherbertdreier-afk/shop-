@@ -56,6 +56,7 @@ export function SearchOverlay() {
                           <Img src={p.images[0]} alt={p.title} width={120} />
                           <span>{p.title}</span>
                           <Price price={v.price} compareAt={v.compareAtPrice} from={hasPriceRange(p)} className="small" />
+                          {p.isExample && <span className="card-price-note">Beispielpreis</span>}
                         </Link>
                       </li>
                     );

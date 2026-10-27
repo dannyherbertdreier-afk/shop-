@@ -22,7 +22,7 @@ export function CartLines({ onNavigate }: { onNavigate?: () => void }) {
             <span className="cart-line-unit">{formatMoney(l.variant.price)} / Stück</span>
             <div className="cart-line-actions">
               <QtyStepper value={l.quantity} onChange={(q) => setQuantity(l.variantId, q)} label={l.product.title} />
-              <button className="link-btn" onClick={() => removeLine(l.variantId)} aria-label={`${l.product.title} ${l.variant.title} entfernen`}>
+              <button className="link-btn" onClick={() => removeLine(l.variantId)} aria-label={`${l.product.title} (${l.variant.title}) aus dem Warenkorb entfernen`}>
                 <IconTrash size={18} />
               </button>
             </div>

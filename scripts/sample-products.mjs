@@ -5,6 +5,7 @@ import { writeFileSync } from 'node:fs';
 
 const SAMPLE_NOTE =
   '<p><em>Beispielprodukt: Material, Maße, Pflegehinweise und Lieferzeit werden ergänzt, sobald ein Lieferant feststeht.</em></p>';
+const sampleNote = (what) => `<p><em>Beispielprodukt: ${what} und Lieferzeit werden ergänzt, sobald ein Lieferant feststeht.</em></p>`;
 
 const items = [
   {
@@ -36,9 +37,9 @@ const items = [
   },
   {
     handle: 'pfotenpflege-balsam', title: 'Pfotenpflege-Balsam', category: 'pfotenschutz', price: 14.9,
-    colors: [], sizes: ['50 ml'], images: [], featured: null, tags: ['balsam', 'pflege', 'pfoten'],
+    colors: [], sizes: ['50 ml'], sizeLabel: 'Inhalt', note: sampleNote('Inhaltsstoffe, Anwendungshinweise'), images: [], featured: null, tags: ['balsam', 'pflege', 'pfoten'],
     summary: 'Pflege für Pfoten nach dem Winterspaziergang.',
-    text: '<p>Ein Pflegebalsam für Pfoten nach dem Spaziergang.</p><p>Inhaltsstoffe werden mit dem Lieferanten ergänzt. Bei verletzten oder entzündeten Pfoten bitte tierärztlichen Rat einholen.</p>',
+    text: '<p>Ein Pflegebalsam für Pfoten nach dem Spaziergang.</p><p>Bei verletzten oder entzündeten Pfoten bitte tierärztlichen Rat einholen.</p>',
   },
   {
     handle: 'hundesocken-noppen', title: 'Hundesocken mit Noppen', category: 'pfotenschutz', price: 19.9,
@@ -50,7 +51,7 @@ const items = [
     handle: 'winteroverall-schneefeld', title: 'Winter-Overall „Schneefeld“', category: 'winter-overalls', price: 79.9,
     colors: ['Schwarz', 'Waldgrün'], sizes: ['S', 'M', 'L', 'XL'],
     images: ['images/ganzkoerperanzug.jpg'], featured: 2, tags: ['overall', 'schnee', 'beine'],
-    summary: 'Ganzkörper-Overall, der auch die Beine bedeckt.',
+    summary: 'Overall, der Rumpf und Beine bedeckt.',
     text: '<p>Ein Overall, der Rumpf und Beine bedeckt – für Spaziergänge im Schnee.</p><p>Tipp: Miss Rückenlänge, Brust- und Halsumfang, bevor du die Größe wählst.</p>',
   },
   {
@@ -69,19 +70,19 @@ const items = [
   {
     handle: 'led-leuchtanhaenger', title: 'LED-Leuchtanhänger', category: 'winterzubehoer', price: 12.9,
     colors: ['Orange', 'Weiß'], sizes: [], images: [], featured: 6, tags: ['licht', 'dunkel', 'sichtbarkeit'],
-    summary: 'Kleines Licht fürs Halsband an dunklen Abenden.',
+    summary: 'Kleines Licht für Halsband oder Geschirr an dunklen Abenden.',
     text: '<p>Ein kleiner Leuchtanhänger für Halsband oder Geschirr – für Spaziergänge in der Dämmerung.</p>',
   },
   {
     handle: 'trockenmantel-nachspiel', title: 'Trockenmantel „Nachspiel“', category: 'winterzubehoer', price: 44.9,
     colors: ['Sand', 'Waldgrün'], sizes: ['S', 'M', 'L', 'XL'], images: [], featured: null, tags: ['handtuch', 'bademantel', 'trocknen'],
-    summary: 'Mantel aus Frottee für nach dem Spaziergang.',
-    text: '<p>Ein Mantel aus Frottee zum Abtrocknen nach nassen Spaziergängen.</p>',
+    summary: 'Trockenmantel für nach dem Spaziergang.',
+    text: '<p>Ein Mantel zum Abtrocknen nach nassen Spaziergängen.</p>',
   },
   {
-    handle: 'leine-reflexnaht', title: 'Leine mit Reflexnaht', category: 'winterzubehoer', price: 24.9,
-    colors: ['Waldgrün', 'Orange'], sizes: ['1,5 m', '2 m'], images: [], featured: null, tags: ['leine', 'reflektor'],
-    summary: 'Leine mit reflektierender Naht für dunkle Tage.',
+    handle: 'leine-reflexstreifen', title: 'Leine mit Reflexstreifen', category: 'winterzubehoer', price: 24.9,
+    colors: ['Waldgrün', 'Orange'], sizes: ['1,5 m', '2 m'], sizeLabel: 'Länge', images: [], featured: null, tags: ['leine', 'reflektor', 'reflexstreifen'],
+    summary: 'Leine mit eingenähtem Reflexstreifen für die dunkle Jahreszeit.',
     text: '<p>Eine Leine mit eingenähtem Reflexstreifen für die dunkle Jahreszeit.</p>',
   },
 ];
@@ -89,7 +90,7 @@ const items = [
 const products = items.map((it, i) => {
   const options = [];
   if (it.colors.length) options.push({ name: 'Farbe', values: it.colors });
-  if (it.sizes.length) options.push({ name: 'Größe', values: it.sizes });
+  if (it.sizes.length) options.push({ name: it.sizeLabel ?? 'Größe', values: it.sizes });
   const combos = options.reduce((acc, o) => acc.flatMap((c) => o.values.map((v) => [...c, v])), [[]]);
   return {
     id: String(1000 + i),
@@ -99,7 +100,7 @@ const products = items.map((it, i) => {
     tags: it.tags,
     isExample: true,
     summary: it.summary,
-    descriptionHtml: it.text + SAMPLE_NOTE,
+    descriptionHtml: it.text + (it.note ?? SAMPLE_NOTE),
     options,
     images: it.images,
     variants: combos.map((combo, j) => ({

@@ -15,7 +15,7 @@ export function Collection() {
   return (
     <div className="page">
       <section className="collection-hero container">
-        <nav className="breadcrumbs" aria-label="Brotkrumen">
+        <nav className="breadcrumbs" aria-label="Navigationspfad">
           <Link to="/">Startseite</Link> / <span>{collection.title}</span>
         </nav>
         <h1>{collection.title}</h1>

@@ -23,8 +23,8 @@ export function validateEmail(email: string): string | undefined {
 
 export function validateAddress(a: Address): Errors<Address> {
   const e: Errors<Address> = {};
-  if (!a.firstName.trim()) e.firstName = 'Bitte gib einen Vornamen ein';
-  if (!a.lastName.trim()) e.lastName = 'Bitte gib einen Nachnamen ein';
+  if (!a.firstName.trim()) e.firstName = 'Bitte gib deinen Vornamen ein';
+  if (!a.lastName.trim()) e.lastName = 'Bitte gib deinen Nachnamen ein';
   if (a.address1.trim().length < 3) e.address1 = 'Bitte gib Straße und Hausnummer ein';
   if (!a.city.trim()) e.city = 'Bitte gib einen Ort ein';
   const country = COUNTRIES.find((c) => c.code === a.country);

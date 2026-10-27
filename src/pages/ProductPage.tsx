@@ -30,7 +30,7 @@ function Gallery({ product }: { product: Product }) {
         <div className="gallery-track" ref={track} onScroll={(e) => setIndex(Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))}>
           {images.map((src, i) => (
             <div className="gallery-slide" key={i}>
-              <Img src={src} alt={`${product.title} – Bild ${i + 1}`} width={1200} eager={i === 0} />
+              <Img src={src} alt={src ? `Symbolbild zu ${product.title}` : product.title} width={1200} eager={i === 0} />
             </div>
           ))}
         </div>
@@ -43,6 +43,7 @@ function Gallery({ product }: { product: Product }) {
         )}
         {product.isExample && <span className="badge badge-sample">Beispielprodukt</span>}
       </div>
+      {product.images.length > 0 && <p className="image-note">Symbolbild – zeigt nicht das angebotene Produkt.</p>}
       {images.length > 1 && (
         <div className="gallery-thumbs">
           {images.map((src, i) => (
@@ -107,7 +108,7 @@ function ProductView({ product }: { product: Product }) {
 
   return (
     <div className="page">
-      <nav className="breadcrumbs container" aria-label="Brotkrumen">
+      <nav className="breadcrumbs container" aria-label="Navigationspfad">
         <Link to="/">Startseite</Link> / <Link to={`/collections/${product.category}`}>{categoryTitle(product.category)}</Link> / <span>{product.title}</span>
       </nav>
       <div className="product container">

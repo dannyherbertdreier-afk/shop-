@@ -103,6 +103,7 @@ export function TrackOrder() {
       {result === null && <p className="form-error" role="alert">Keine Bestellung mit dieser Nummer und E-Mail-Adresse gefunden.</p>}
       {result && (
         <>
+          <p className="demo-banner">Demo-Ansicht – es findet kein Versand statt.</p>
           <ol className="timeline">
             <li className="done">Eingegangen</li>
             <li>In Bearbeitung</li>

@@ -15,7 +15,7 @@ export function Img({ src, alt, width, className = '', eager }: Props) {
   const [state, setState] = useState<'loading' | 'loaded' | 'error'>(src ? 'loading' : 'error');
   if (state === 'error') {
     return (
-      <div className={`img-fallback ${className}`} role="img" aria-label={`${alt} – Produktbild folgt`}>
+      <div className={`img-fallback ${className}`} role="img" aria-label={alt ? `${alt} – Produktbild folgt` : 'Produktbild folgt'}>
         <IconPaw size={28} />
         <span>Produktbild folgt</span>
       </div>

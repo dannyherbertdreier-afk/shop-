@@ -155,7 +155,7 @@ export function ProductListing({ items, showCategoryFilter = false }: { items: P
         </div>
         <div className="drawer-foot two">
           <button className="btn btn-outline" onClick={clear} disabled={!activeCount}>Zurücksetzen</button>
-          <button className="btn" onClick={() => setDrawer(false)}>{shown.length} anzeigen</button>
+          <button className="btn" onClick={() => setDrawer(false)}>{shown.length} {shown.length === 1 ? 'Produkt' : 'Produkte'} anzeigen</button>
         </div>
       </aside>
     </>

@@ -8,7 +8,7 @@ export const BENEFITS = [
   { icon: 'snow', title: 'Für kalte und nasse Tage', text: 'Mäntel, Overalls und Pfotenschutz für Schnee, Regen und Streusalz.' },
   { icon: 'move', title: 'Komfort unterwegs', text: 'Schnitte, bei denen Bewegungsfreiheit und Passform im Mittelpunkt stehen.' },
   { icon: 'leash', title: 'Praktisch für jeden Spaziergang', text: 'Durchdachte Begleiter – vom Leuchtanhänger bis zum Trockenmantel.' },
-  { icon: 'ruler', title: 'Die passende Größe finden', text: 'Klare Größenhinweise und Messtipps auf jeder Produktseite.' },
+  { icon: 'ruler', title: 'Die passende Größe finden', text: 'Messtipps für Rückenlänge, Brust- und Halsumfang – Maßtabellen folgen.' },
 ] as const;
 
 export const SIZE_GUIDE: ReactNode = (
@@ -29,7 +29,7 @@ export const FAQ: { q: string; a: ReactNode }[] = [
     q: 'Sind die Produkte schon bestellbar?',
     a: (
       <p>
-        Noch nicht. PAWGUARD befindet sich im Aufbau. Alle Produkte sind <strong>Beispielprodukte</strong>, und der Checkout ist eine Demo: Es wird nichts berechnet und nichts versendet.
+        Noch nicht. PAWGUARD befindet sich im Aufbau. Alle Produkte sind <strong>Beispielprodukte</strong>, und die Kasse ist eine Demo: Es wird nichts berechnet und nichts versendet.
       </p>
     ),
   },

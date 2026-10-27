@@ -114,7 +114,7 @@ export function Checkout() {
           <section>
             <h2>Lieferadresse</h2>
             <label className={`field ${errors.country ? 'has-error' : ''}`}>
-              <span>Land</span>
+              <span>Land <span className="muted">(Demo – Lieferländer noch nicht festgelegt)</span></span>
               <select name="country" value={form.country} onChange={(e) => set('country', e.target.value)} autoComplete="country">
                 {COUNTRIES.map((c) => <option key={c.code} value={c.code}>{c.name}</option>)}
               </select>
@@ -153,7 +153,7 @@ export function Checkout() {
           {errors.terms && <p className="field-error">{errors.terms}</p>}
           {submitError && <p className="form-error" role="alert">{submitError}</p>}
           <button className="btn btn-block btn-lg" disabled={submitting}>
-            {submitting ? <span className="spinner" aria-label="Bestellung wird angelegt" /> : `Demo-Bestellung abschicken · ${formatMoney(totals.total)}`}
+            {submitting ? <span className="spinner" aria-label="Demo-Bestellung wird angelegt" /> : `Demo-Bestellung abschicken · ${formatMoney(totals.total)}`}
           </button>
         </form>
         <aside className="checkout-summary">

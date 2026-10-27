@@ -50,7 +50,7 @@ export function Home() {
 
       <section className="section container" aria-labelledby="cat-title">
         <div className="section-head">
-          <h2 id="cat-title">Nach Kategorie einkaufen</h2>
+          <h2 id="cat-title">Kategorien entdecken</h2>
           <Link to="/collections/all" className="link-arrow">Alle Produkte <IconArrow size={18} /></Link>
         </div>
         <div className="categories">
@@ -59,7 +59,7 @@ export function Home() {
               <Img src={c.image} alt="" width={800} />
               <div className="category-label">
                 <h3>{c.title}</h3>
-                <span>{counts.get(c.handle)} Produkte</span>
+                <span>{counts.get(c.handle)} {counts.get(c.handle) === 1 ? 'Produkt' : 'Produkte'}</span>
               </div>
             </Link>
           ))}
@@ -82,9 +82,9 @@ export function Home() {
         </div>
         <div className="story-content">
           <p className="eyebrow">Über PAWGUARD</p>
-          <h2>Für Hunde, die auch im Winter raus wollen.</h2>
+          <h2>Für Hunde, die auch im Winter rauswollen.</h2>
           <p>PAWGUARD entsteht für Hundebesitzer, die bei Kälte, Regen und Schnee nicht auf gemeinsame Spaziergänge verzichten möchten. Unser Ziel: wenige, durchdachte Produkte, die du leicht findest und in der richtigen Größe bestellst.</p>
-          <p className="story-note">Wir sind noch im Aufbau. Materialangaben, Versandbedingungen und Rückgaberegeln veröffentlichen wir, sobald sie feststehen – nicht vorher.</p>
+          <p className="story-note">Wir sind noch im Aufbau. Materialangaben, Versandbedingungen und Rückgaberegeln veröffentlichen wir, sobald sie feststehen.</p>
           <Link to="/pages/about" className="btn btn-outline-light">Mehr über PAWGUARD</Link>
         </div>
       </section>
@@ -96,7 +96,7 @@ export function Home() {
             <div className="rte">{f.a}</div>
           </Accordion>
         ))}
-        <Link to="/pages/faq" className="link-arrow faq-more">Alle Fragen & Größenhilfe <IconArrow size={18} /></Link>
+        <Link to="/pages/faq" className="link-arrow faq-more">Größe & häufige Fragen <IconArrow size={18} /></Link>
       </section>
     </>
   );

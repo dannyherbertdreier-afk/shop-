@@ -45,7 +45,7 @@ export function About() {
       <h2>Wofür wir stehen wollen</h2>
       <ul>
         <li><strong>Funktion vor Schnickschnack:</strong> Produkte, die beim Spaziergang tatsächlich helfen.</li>
-        <li><strong>Bewegungsfreiheit:</strong> Schnitte, in denen sich dein Hund wohlfühlt.</li>
+        <li><strong>Bewegungsfreiheit:</strong> Schnitte, in denen sich dein Hund wohlfühlen soll.</li>
         <li><strong>Ehrliche Angaben:</strong> Materialien, Versand und Rückgabe nennen wir erst, wenn sie feststehen.</li>
       </ul>
       <p>Derzeit zeigen wir Beispielprodukte, um Auswahl und Einkaufsablauf zu testen.</p>
@@ -60,7 +60,7 @@ export function Shipping() {
     <div className="page container narrow rte">
       <h1 className="page-title">Versandinformationen</h1>
       <Placeholder>Versandkosten, Lieferzeiten und Lieferländer werden festgelegt, sobald Lieferanten und Versanddienstleister feststehen.</Placeholder>
-      <p>Bis dahin ist der Checkout eine Demo: Es wird nichts versendet und nichts berechnet.</p>
+      <p>Bis dahin ist die Kasse eine Demo: Es wird nichts versendet und nichts berechnet.</p>
     </div>
   );
 }

@@ -42,6 +42,7 @@ function Newsletter() {
             </button>
           </div>
           {error && <p className="field-error">{error}</p>}
+          <p className="newsletter-note">Hinweise zum Datenschutz folgen mit dem Start.</p>
         </form>
       )}
     </section>
