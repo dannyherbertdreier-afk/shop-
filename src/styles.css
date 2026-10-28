@@ -82,7 +82,7 @@ h1, h2, h3 { margin: 0; line-height: 1.2; font-family: var(--font-head); letter-
 .header { position: sticky; top: 0; z-index: 30; background: rgba(248, 246, 240, 0.94); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line); }
 .header-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: var(--header-h); padding: 0 8px; max-width: 1240px; margin: 0 auto; }
 .header-inner > .icon-btn:first-child { justify-self: start; }
-.logo { font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; letter-spacing: 0.14em; color: var(--forest); justify-self: center; }
+.logo { font-family: var(--font-head); font-weight: 800; font-size: 1.35rem; letter-spacing: 0.02em; color: var(--forest); justify-self: center; }
 .logo-dark { color: var(--forest); }
 .nav-desktop { display: none; }
 .header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 2px; }

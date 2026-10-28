@@ -1,4 +1,4 @@
-// End-to-end test for the PAWGUARD demo shop (German UI, dog winter products).
+// End-to-end test for the Knuddelwuff demo shop (German UI, dog winter products).
 // Plain Node script: prints PASS/FAIL lines, console/page errors and writes screenshots.
 //   E2E_URL  base URL of the running preview (default http://localhost:4173)
 //   E2E_OUT  screenshot directory (default ../e2e-screenshots)

@@ -21,7 +21,7 @@ function Newsletter() {
     <section className="newsletter" aria-labelledby="nl-title">
       <div>
         <h2 id="nl-title">Bereit für den Winter?</h2>
-        <p>Trag dich ein, und wir sagen Bescheid, sobald PAWGUARD startet.</p>
+        <p>Trag dich ein, und wir sagen Bescheid, sobald Knuddelwuff startet.</p>
       </div>
       {done ? (
         <p className="success" role="status">Danke! Deine Adresse ist vorgemerkt – in dieser Demo nur in deinem Browser, es werden keine E-Mails verschickt.</p>

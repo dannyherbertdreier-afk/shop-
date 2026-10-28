@@ -33,11 +33,11 @@ export function Faq() {
 }
 
 export function About() {
-  usePageTitle('Über PAWGUARD');
+  usePageTitle('Über Knuddelwuff');
   return (
     <div className="page container narrow rte">
-      <h1 className="page-title">Über PAWGUARD</h1>
-      <p>PAWGUARD ist ein Onlineshop im Aufbau – für Hundebesitzer in Deutschland, die ihre Hunde bei Kälte, Regen, Schnee und Streusalz gut ausgestattet wissen möchten.</p>
+      <h1 className="page-title">Über Knuddelwuff</h1>
+      <p>Knuddelwuff ist ein Onlineshop im Aufbau – für Hundebesitzer in Deutschland, die ihre Hunde bei Kälte, Regen, Schnee und Streusalz gut ausgestattet wissen möchten.</p>
       <h2>Wofür wir stehen wollen</h2>
       <ul>
         <li><strong>Funktion vor Schnickschnack:</strong> Produkte, die beim Spaziergang tatsächlich helfen.</li>
