@@ -18,8 +18,8 @@ export const NAV = [
 
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
-    <Link to="/" className={`logo ${dark ? 'logo-dark' : ''}`} aria-label="PAWGUARD – zur Startseite">
-      PAWGUARD
+    <Link to="/" className={`logo ${dark ? 'logo-dark' : ''}`} aria-label="Knuddelwuff – zur Startseite">
+      Knuddelwuff
     </Link>
   );
 }

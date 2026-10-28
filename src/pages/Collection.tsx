@@ -8,7 +8,7 @@ export function Collection() {
   const { handle = 'all' } = useParams();
   const collection = findCollection(handle);
   useEffect(() => {
-    if (collection) document.title = `${collection.title} – PAWGUARD`;
+    if (collection) document.title = `${collection.title} – Knuddelwuff`;
   }, [collection]);
   if (!collection) return <NotFound />;
   const items = products.filter(collection.filter);

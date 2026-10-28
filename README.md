@@ -1,13 +1,15 @@
-# PAWGUARD – Demo-Shop für Hunde-Winterbekleidung
+# Knuddelwuff – Demo-Shop für Hunde-Winterbekleidung
 
-Klickbarer Demo-Onlineshop für die Arbeitsmarke **PAWGUARD**: Hundemäntel,
+Klickbarer Demo-Onlineshop für die Arbeitsmarke **Knuddelwuff**: Hundemäntel,
 Pfotenschutz, Winter-Overalls und Winterzubehör für Hundebesitzer in Deutschland.
 
 > **Demo im Aufbau.** Alle Produkte sind Beispielprodukte mit Beispielpreisen.
 > Es werden keine echten Bestellungen, Zahlungen, E-Mails oder Lieferungen
 > abgewickelt. Warenkorb, Demo-Bestellungen und Newsletter-Eintrag liegen nur im
 > `localStorage` des jeweiligen Browsers. Rechtstexte sind Platzhalter.
-> „PAWGUARD“ ist ein Arbeitsname; die Markenverfügbarkeit ist nicht geprüft.
+> „Knuddelwuff“ ist ein Arbeitsname; die Markenverfügbarkeit ist nicht geprüft.
+> Achtung: Es existiert eine sehr ähnliche Marke für Hundebetten („Knuffelwuff“).
+> Vor einem echten Start ist eine Markenprüfung nötig.
 
 Live-Vorschau (nach dem Merge in `main`): https://dannyherbertdreier-afk.github.io/shop-/
 
@@ -59,4 +61,4 @@ angebotenen Produkte. Produkte ohne Foto zeigen bewusst „Produktbild folgt“.
 - Rechtstexte (Impressum, Datenschutz, AGB, Widerruf) und Unternehmensdaten
 - Echte Lieferanten, Produktdaten, Maßtabellen, Versand- und Rückgabebedingungen
 - Echte Zahlungsabwicklung (z. B. über ein Shop-System)
-- Markenrecherche für „PAWGUARD“
+- Markenrecherche für „Knuddelwuff“

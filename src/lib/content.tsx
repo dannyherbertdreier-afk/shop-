@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
-export const BRAND = 'PAWGUARD';
+export const BRAND = 'Knuddelwuff';
 
 // Statements here describe the shop's intent only; no unverified product or service promises.
 export const BENEFITS = [
@@ -29,7 +29,7 @@ export const FAQ: { q: string; a: ReactNode }[] = [
     q: 'Sind die Produkte schon bestellbar?',
     a: (
       <p>
-        Noch nicht. PAWGUARD befindet sich im Aufbau. Alle Produkte sind <strong>Beispielprodukte</strong>, und die Kasse ist eine Demo: Es wird nichts berechnet und nichts versendet.
+        Noch nicht. Knuddelwuff befindet sich im Aufbau. Alle Produkte sind <strong>Beispielprodukte</strong>, und die Kasse ist eine Demo: Es wird nichts berechnet und nichts versendet.
       </p>
     ),
   },

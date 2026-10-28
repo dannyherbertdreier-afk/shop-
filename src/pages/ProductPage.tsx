@@ -86,7 +86,7 @@ function ProductView({ product }: { product: Product }) {
   );
 
   useEffect(() => {
-    document.title = `${product.title} – PAWGUARD`;
+    document.title = `${product.title} – Knuddelwuff`;
   }, [product.title]);
 
   const choose = (i: number, value: string) => {

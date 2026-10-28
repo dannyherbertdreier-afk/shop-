@@ -79,11 +79,11 @@ export function Home() {
           <Img src="images/winterspaziergang-collie.jpg" alt="Hund sitzt auf einem frostigen Weg bei einem Winterspaziergang" width={1200} />
         </div>
         <div className="story-content">
-          <p className="eyebrow">Über PAWGUARD</p>
+          <p className="eyebrow">Über Knuddelwuff</p>
           <h2>Für Hunde, die auch im Winter rauswollen.</h2>
-          <p>PAWGUARD entsteht für Hundebesitzer, die bei Kälte, Regen und Schnee nicht auf gemeinsame Spaziergänge verzichten möchten. Unser Ziel: wenige, durchdachte Produkte, die du leicht findest und in der richtigen Größe bestellst.</p>
+          <p>Knuddelwuff entsteht für Hundebesitzer, die bei Kälte, Regen und Schnee nicht auf gemeinsame Spaziergänge verzichten möchten. Unser Ziel: wenige, durchdachte Produkte, die du leicht findest und in der richtigen Größe bestellst.</p>
           <p className="story-note">Wir sind noch im Aufbau. Materialangaben, Versandbedingungen und Rückgaberegeln veröffentlichen wir, sobald sie feststehen.</p>
-          <Link to="/pages/about" className="btn btn-outline-light">Mehr über PAWGUARD</Link>
+          <Link to="/pages/about" className="btn btn-outline-light">Mehr über Knuddelwuff</Link>
         </div>
       </section>
 
