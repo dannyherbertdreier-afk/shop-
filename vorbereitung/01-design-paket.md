@@ -1,6 +1,6 @@
 # 1 · Design-Paket für Shopify
 
-Stand: 28.10.2026 · Markenname noch offen → überall **[MARKENNAME]** ersetzen, sobald er feststeht.
+Stand: 29.10.2026 · Markenname noch offen → überall **[MARKENNAME]** ersetzen, sobald er feststeht.
 
 Ziel: Den Look des bisherigen Prototyps (Waldgrün, Creme, ruhig und hochwertig) in einem
 **kostenlosen Shopify-Theme** nachbauen – nur über die Theme-Einstellungen, ohne eigenen Code.
@@ -79,9 +79,9 @@ abweichen).
 
 ### ① Startbild (Bild-Banner / Hero)
 - **Kleine Überzeile:** Winterkollektion
-- **Überschrift:** Gut ausgestattet durch den Winter.
-  *(Alternative zur bisherigen Zeile „Gut geschützt …“; die frühere Textprüfung stufte „geschützt“
-  als möglichen Schutz-Versprechen-Grenzfall ein. Entscheidung beim CEO.)*
+- **Überschrift:** Gut geschützt durch den Winter.
+  *(Festgelegt durch den CEO am 29.10.2026. Bekannter Hinweis aus der Textprüfung: „geschützt“
+  kann als Schutzversprechen gelesen werden – bei der rechtlichen Prüfung der Shop-Texte mit ansehen.)*
 - **Text:** Entdecke durchdachte Winterbegleiter für deinen Hund – für kalte Spaziergänge, nasse
   Wege und frostige Tage.
 - **Button 1:** Winterkollektion entdecken → Kollektion „Alle Produkte“
