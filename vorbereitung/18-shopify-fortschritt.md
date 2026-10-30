@@ -26,3 +26,26 @@ Claude hat keinen Shopify-Zugang und hat **nichts selbst eingestellt**.
 | Passwortschutz | an (laut CEO) | A | ✔ bleibt an |
 | Theme, Menüs, Seiten, Kollektionen, E-Mail-Design, Richtlinien | noch nicht begonnen | – | Anleitung `17` |
 | Printify / CJ | Konten vorhanden, **nicht verbunden** | A | ✔ wie geplant |
+
+---
+
+## Änderungen per API durch Claude (30.10.2026)
+
+Zugang: eigene App „Claude Einrichtung“ (Dev Dashboard), Rechte nur Themes, Inhalte, Navigation, Produkte/Kollektionen.
+**Nach Abschluss App deinstallieren und löschen.** Schlüssel liegen nicht im Repository.
+
+| Bereich | Änderung | Kontrolle |
+|---|---|---|
+| Seiten | „Über uns“ (`/pages/ueber-uns`) und „Größe & häufige Fragen“ (`/pages/groesse-und-faq`) angelegt | API-Antwort ✔ |
+| Kollektionen | Hundemäntel, Pfotenschutz, Winter-Overalls, Winterzubehör – automatisch über Tags `kategorie-*` | API-Antwort ✔ (Sichtbarkeit im Onlineshop ungeprüft) |
+| Hauptmenü | Startseite, Alle Produkte, Größe & FAQ, Über uns, Kontakt | API-Antwort ✔ |
+| Footer-Menü | Suche, Größe & FAQ, Über uns, Kontakt | API-Antwort ✔ |
+| Theme-Farben | 4 Farbschemata nach Design-Paket (Creme, Waldgrün, Salbei, Sand; Orange als Akzent auf Dunkelgrün) | Datei neu ausgelesen ✔, Passwortseite live ✔ |
+| Schriften | Überschriften Manrope 700, Text Inter 400, H1 64 px; Button-Ecken 10 px | Datei ✔, Passwortseite live ✔ |
+| Startseite | Hero „Gut geschützt durch den Winter.“ + Text + 2 Buttons; Vorteile (3); Winterproblem + Größe; Über uns; FAQ (4); Abschluss-Aufruf; Beispielprodukt-Abschnitte **ausgeblendet** (nicht gelöscht) | Datei ✔, **Optik ungeprüft** (Shop passwortgeschützt) |
+| Footer | Links „Über uns“, „Größe & FAQ“ gesetzt; „Rückgabebedingungen“ und Newsletter-Anmeldung ausgeblendet | Datei ✔ |
+| Produktseite | Preis mit Steuerhinweis; „Das könnte dir auch gefallen“ | Datei ✔ |
+| Passwortseite | „Wir öffnen bald. / Wir bereiten gerade alles für den Winter vor.“, Newsletter-Feld aus | live geprüft ✔ |
+| Warenkorb | war bereits „Drawer“ – unverändert | ✔ |
+
+**Nicht angefasst:** Shopname, Beispielprodukte (4× „Beispielprodukt“, aktiv), Passwortschutz, Zahlungen, Versand, Rechtstexte.
