@@ -69,3 +69,21 @@ Zählung danach: 0 aktiv, 4 Entwurf. Sichtbarkeit im Shop von außen **ungeprüf
 - Die App „Claude Einrichtung“ hat keine Versand-Rechte (`read_shipping`/`write_shipping`). Auf CEO-Anweisung keine Rechte ergänzt, nichts umgangen.
 - Versandtarife sind **unverändert**: Express 9,99 € (1–2 Werktage) besteht weiterhin.
 - Optionen: CEO entfernt den Tarif selbst (Einstellungen → Versand und Zustellung), oder CEO ergänzt bewusst die Versand-Rechte in einer neuen App-Version.
+
+## Aufgabe 3 – Durchgang „autonomer Shopify-Manager“ (30.10.2026)
+
+**Rechte-Prüfung:** Neuer Zugangsschlüssel liefert weiterhin nur `write_themes, write_content, write_online_store_navigation, write_products`
+(die Schreibrechte schließen Lesen ein). **Versand- und Verkaufskanal-Rechte sind nicht aktiv.**
+
+| Aufgabe | Ergebnis | Kontrolle |
+|---|---|---|
+| 1 Bestand prüfen | Theme „Whisper“ aktiv, „Horizon“ unveröffentlicht; 4 Produkte, 0 aktiv; Shopname „Mein Shop“ | API ✔ |
+| 2 Express-Versand entfernen | **nicht möglich** – fehlende Rechte `read_shipping`/`write_shipping` | – |
+| 3 Plan und Kosten | Plan laut API „Basic“, keine Partner-Entwicklungs-Shop; Rechnungen/Testphase per API **nicht lesbar** | API ✔ (nur Planname) |
+| 4 Englische Reste | übersetzt: 404 („Seite nicht gefunden“ …), Warenkorb („Warenkorb“, „Das könnte dir auch gefallen“, „Alle ansehen“), Kontaktformular („Senden“), Kategorienübersicht („Kategorien“) | Dateien neu ausgelesen ✔ |
+| 5 Mobile Darstellung | Überschriften skalieren laut Theme-Code automatisch (`clamp()` in `snippets/theme-styles-variables.liquid`); **Sichtprüfung offen** (Besucher-Passwort fehlt) | Code gelesen |
+| 6 Seiten auf Fehler | Vorlagen ohne englische Reste; Optik **ungeprüft** | API ✔ |
+| 7 Vorbereitung Printify/CJ | 6 leere Produkt-Datenfelder (Metafelder `custom.*`): Hersteller (GPSR), EU-Verantwortlicher (GPSR), Warn- und Sicherheitshinweise, Material, Pflegehinweise, Größentabelle | API-Antwort ✔ |
+
+Sicherungen der 4 geänderten Vorlagen: `shopify-theme-sicherung/original-30-10-2026/templates_*.json`.
+Die Datenfelder werden noch **nicht** auf der Produktseite angezeigt (erst sinnvoll, wenn echte Produkte mit Werten existieren).
