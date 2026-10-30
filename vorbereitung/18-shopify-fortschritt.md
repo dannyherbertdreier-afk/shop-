@@ -48,4 +48,24 @@ Zugang: eigene App „Claude Einrichtung“ (Dev Dashboard), Rechte nur Themes, 
 | Passwortseite | „Wir öffnen bald. / Wir bereiten gerade alles für den Winter vor.“, Newsletter-Feld aus | live geprüft ✔ |
 | Warenkorb | war bereits „Drawer“ – unverändert | ✔ |
 
-**Nicht angefasst:** Shopname, Beispielprodukte (4× „Beispielprodukt“, aktiv), Passwortschutz, Zahlungen, Versand, Rechtstexte.
+**Nicht angefasst:** Shopname, Passwortschutz, Zahlungen, Versand, Rechtstexte.
+
+## Aufgabe 1 – Beispielprodukte (30.10.2026)
+
+| Produkt | Handle | Vorher | Nachher (per API erneut ausgelesen) |
+|---|---|---|---|
+| Beispielprodukt | animals-and-pet-supplies-example-product-1 | Aktiv | **Entwurf** |
+| Beispielprodukt | animals-and-pet-supplies-example-product-2 | Aktiv | **Entwurf** |
+| Beispielprodukt | animals-and-pet-supplies-example-product-3 | Aktiv | **Entwurf** |
+| Beispielprodukt | animals-and-pet-supplies-example-product-4 | Aktiv | **Entwurf** |
+
+Zuordnung: einzige 4 Produkte im Shop, Tag „Sample Product“, angelegt 08:11 Uhr zusammen mit dem Theme. Nicht gelöscht.
+Zählung danach: 0 aktiv, 4 Entwurf. Sichtbarkeit im Shop von außen **ungeprüft** (Passwortschutz).
+
+## Aufgabe 2 – Express-Versand entfernen (30.10.2026): NICHT DURCHGEFÜHRT
+
+- Status: **blockiert – fehlende Berechtigung**.
+- Lesender Test `deliveryProfiles` → Shopify-Antwort: „Access denied for deliveryProfiles field.“ (`ACCESS_DENIED`).
+- Die App „Claude Einrichtung“ hat keine Versand-Rechte (`read_shipping`/`write_shipping`). Auf CEO-Anweisung keine Rechte ergänzt, nichts umgangen.
+- Versandtarife sind **unverändert**: Express 9,99 € (1–2 Werktage) besteht weiterhin.
+- Optionen: CEO entfernt den Tarif selbst (Einstellungen → Versand und Zustellung), oder CEO ergänzt bewusst die Versand-Rechte in einer neuen App-Version.
