@@ -1,0 +1,446 @@
+{
+  "name": "Knuddelwuff 1 – Betriebe finden & bewerten",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "db0d8d63-e0d7-4aea-aa28-9f0a12642d39",
+      "name": "Start (manuell)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "id": "213060d9-60f1-456a-992f-fbfaa07e135e",
+      "name": "Zeitplan",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Suchgebiete und Kategorien. Hier Städte ergänzen: Name, Breite, Länge, Radius in km.\nconst staedte = [\n  { ort: 'Mannheim', lat: 49.4875, lon: 8.4660, radius_km: 15 },\n  { ort: 'Frankfurt am Main', lat: 50.1109, lon: 8.6821, radius_km: 15 },\n];\n// OpenStreetMap-Kategorien für Hundebetriebe\nconst kategorien = [\n  { kategorie: 'Hundesalon', tag: 'shop=pet_grooming' },\n  { kategorie: 'Zoofachgeschäft', tag: 'shop=pet' },\n  { kategorie: 'Hundepension / -tagesstätte', tag: 'amenity=animal_boarding' },\n  { kategorie: 'Hundeschule / -training', tag: 'amenity=animal_training' },\n];\nconst items = [];\nfor (const s of staedte) {\n  for (const k of kategorien) {\n    const [key, value] = k.tag.split('=');\n    const r = Math.round(s.radius_km * 1000);\n    const query = `[out:json][timeout:60];(node[\"${key}\"=\"${value}\"](around:${r},${s.lat},${s.lon});way[\"${key}\"=\"${value}\"](around:${r},${s.lat},${s.lon}););out center tags;`;\n    items.push({ json: { ort_suche: s.ort, kategorie: k.kategorie, tag: k.tag, query } });\n  }\n}\nreturn items;\n"
+      },
+      "id": "14702290-a475-489d-8119-e8de85f7ff63",
+      "name": "Suchgebiete & Kategorien",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://overpass-api.de/api/interpreter",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Knuddelwuff-Betriebssuche (n8n)"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "data",
+              "value": "={{ $json.query }}"
+            }
+          ]
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 3000
+            }
+          },
+          "timeout": 120000,
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "fd69bc64-acad-4eeb-9585-83497441f367",
+      "name": "OpenStreetMap abfragen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Wandelt die OpenStreetMap-Antworten in Tabellenzeilen um. Nur Daten, die in OSM stehen.\nconst heute = new Date().toISOString().slice(0, 10);\nconst gesehen = new Set();\nconst zeilen = [];\nconst anfragen = $('Suchgebiete & Kategorien').all();\n$input.all().forEach((item, i) => {\n  const meta = (anfragen[i] && anfragen[i].json) || {};\n  const elemente = Array.isArray(item.json.elements) ? item.json.elements : [];\n  for (const el of elemente) {\n    const t = el.tags || {};\n    if (!t.name) continue; // ohne Namen nicht verwertbar\n    const osm_id = `${el.type}/${el.id}`;\n    if (gesehen.has(osm_id)) continue;\n    gesehen.add(osm_id);\n    const strasse = [t['addr:street'], t['addr:housenumber']].filter(Boolean).join(' ');\n    zeilen.push({ json: {\n      osm_id,\n      name: t.name,\n      kategorie: meta.kategorie || '',\n      strasse,\n      plz: t['addr:postcode'] || '',\n      ort: t['addr:city'] || meta.ort_suche || '',\n      website: t.website || t['contact:website'] || '',\n      telefon: t.phone || t['contact:phone'] || '',\n      email_oeffentlich: t.email || t['contact:email'] || '',\n      quelle: 'OpenStreetMap (© OpenStreetMap-Mitwirkende, ODbL)',\n      zuletzt_gesehen: heute,\n    } });\n  }\n});\nreturn zeilen;\n"
+      },
+      "id": "c71b5db1-965f-4a28-93af-97723e6d6f23",
+      "name": "In Tabellenzeilen umwandeln",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "BITTE_GOOGLE_SHEET_URL_EINTRAGEN",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "osm_id"
+          ],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "1599c4e1-e6e4-49ac-910d-27fb444a7f64",
+      "name": "In Pipeline speichern",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        880,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "BITTE_GOOGLE_SHEET_URL_EINTRAGEN",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Pipeline",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "1233f663-ee9e-4e96-96e7-8d0d767fca23",
+      "name": "Pipeline lesen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1100,
+        100
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nur Zeilen ohne Bewertung; höchstens 20 pro Lauf (Kostenkontrolle).\nconst MAX_PRO_LAUF = 20;\nreturn $input.all()\n  .filter(i => i.json.osm_id && !String(i.json.bewertung || '').trim())\n  .slice(0, MAX_PRO_LAUF);\n"
+      },
+      "id": "c6e44f18-d71e-4a83-9073-de4e88b0a21c",
+      "name": "Noch nicht bewertete auswählen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-haiku-5-5', max_tokens: 900, system: \"Knuddelwuff ist ein deutscher Online-Shop im Aufbau für Hunde-Winterzubehör (Wintermäntel, Regen- und Wetterschutz, Pfotenschutz). Sortiment, Preise, Lieferzeiten und Händlerkonditionen stehen noch nicht fest. Regeln: Schreibe auf Deutsch, in der Sie-Form, sachlich. Nutze NUR die übergebenen Daten. Erfinde keine Personen, Namen, Fakten, Preise, Lieferzeiten, Bewertungen oder Produkteigenschaften (z. B. nicht 'wasserdicht', 'nachhaltig', 'Bestseller'). Wenn Informationen fehlen, sag das. Aufgabe: Bewerte, ob der Betrieb als Geschäftskontakt passt (Hundesalon, Hundeschule/-trainer, Hundepension/-tagesstätte, Zoofachgeschäft/Händler mit Hundebezug). Schreibe außerdem einen kurzen Telefon-Leitfaden (max. 120 Wörter) für einen ersten Anruf, dessen Ziel ist zu fragen, ob grundsätzlich Interesse an einem Austausch besteht und ob wir dazu per E-Mail Informationen schicken dürfen (Einwilligung erfragen und Datum/Kanal notieren). Antworte ausschließlich als JSON: {\\\"passt\\\":\\\"ja|nein|unklar\\\",\\\"begruendung\\\":\\\"…\\\",\\\"telefonleitfaden\\\":\\\"…\\\"}\", messages: [{ role: 'user', content: 'Betrieb: ' + JSON.stringify({ name: $json.name, kategorie: $json.kategorie, ort: $json.ort, website: $json.website, telefon_vorhanden: !!$json.telefon }) }] }) }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "c37b527b-ad60-4658-abde-f7d37a3f0cc0",
+      "name": "Claude: bewerten & Leitfaden",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Liest die Claude-Antwort (JSON) und bereitet das Tabellen-Update vor.\nconst heute = new Date().toISOString().slice(0, 10);\nconst quellen = $('Noch nicht bewertete auswählen').all();\nreturn $input.all().map((item, i) => {\n  const osm_id = quellen[i] ? quellen[i].json.osm_id : '';\n  let text = '';\n  try { text = item.json.content[0].text; } catch (e) { text = ''; }\n  let d = {};\n  try { d = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1)); } catch (e) { d = {}; }\n  const passt = ['ja', 'nein', 'unklar'].includes(d.passt) ? d.passt : 'unklar';\n  return { json: {\n    osm_id,\n    bewertung: passt,\n    begruendung: d.begruendung || 'Antwort nicht auswertbar – bitte manuell prüfen.',\n    telefonleitfaden: d.telefonleitfaden || '',\n    bewertet_am: heute,\n    status: 'bewertet',\n  } };\n});\n"
+      },
+      "id": "dff9a9a6-5c35-4884-a8eb-66c08870670a",
+      "name": "Bewertung auswerten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "BITTE_GOOGLE_SHEET_URL_EINTRAGEN",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "osm_id"
+          ],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "dd9a9948-4227-49ae-b92c-5a617a7b77d4",
+      "name": "Bewertung speichern",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1980,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const alle = $('Bewertung auswerten').all();\nconst n = (w) => alle.filter(i => i.json.bewertung === w).length;\nreturn [{ json: { text:\n  `Knuddelwuff Lead-Suche: ${alle.length} Betriebe bewertet.\\n` +\n  `passt: ${n('ja')} · passt nicht: ${n('nein')} · unklar: ${n('unklar')}\\n` +\n  `Details und Telefon-Leitfäden stehen in der Pipeline-Tabelle. Es wurde nichts versendet.` } }];\n"
+      },
+      "id": "23e9ba12-f090-42ba-a648-4a5655109ceb",
+      "name": "Zusammenfassen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2200,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "BITTE_EIGENE_TELEGRAM_CHAT_ID_EINTRAGEN",
+        "text": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "0076a6fc-c48d-4a79-ad3f-9448d41678e1",
+      "name": "Zusammenfassung an CEO",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2420,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Knuddelwuff 1 – Betriebe finden & bewerten\nFindet Hundebetriebe in OpenStreetMap, speichert sie in der Pipeline-Tabelle, lässt Claude bewerten und einen Telefon-Leitfaden schreiben.\n\n**Versendet nichts.** Nur eine Zusammenfassung per Telegram an den CEO.\n\nVor dem Start: Google-Sheet-URL, Telegram-Chat-ID und Zugangsdaten eintragen (siehe ANLEITUNG.md).\nDaten: © OpenStreetMap-Mitwirkende, ODbL.",
+        "width": 520,
+        "height": 360
+      },
+      "id": "adf811c3-a108-4448-a16e-a528e3620e42",
+      "name": "Hinweis",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -420
+      ]
+    }
+  ],
+  "connections": {
+    "Suchgebiete & Kategorien": {
+      "main": [
+        [
+          {
+            "node": "OpenStreetMap abfragen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenStreetMap abfragen": {
+      "main": [
+        [
+          {
+            "node": "In Tabellenzeilen umwandeln",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "In Tabellenzeilen umwandeln": {
+      "main": [
+        [
+          {
+            "node": "In Pipeline speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "In Pipeline speichern": {
+      "main": [
+        [
+          {
+            "node": "Pipeline lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pipeline lesen": {
+      "main": [
+        [
+          {
+            "node": "Noch nicht bewertete auswählen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Noch nicht bewertete auswählen": {
+      "main": [
+        [
+          {
+            "node": "Claude: bewerten & Leitfaden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude: bewerten & Leitfaden": {
+      "main": [
+        [
+          {
+            "node": "Bewertung auswerten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bewertung auswerten": {
+      "main": [
+        [
+          {
+            "node": "Bewertung speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bewertung speichern": {
+      "main": [
+        [
+          {
+            "node": "Zusammenfassen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zusammenfassen": {
+      "main": [
+        [
+          {
+            "node": "Zusammenfassung an CEO",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start (manuell)": {
+      "main": [
+        [
+          {
+            "node": "Suchgebiete & Kategorien",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zeitplan": {
+      "main": [
+        [
+          {
+            "node": "Suchgebiete & Kategorien",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

@@ -1,0 +1,269 @@
+{
+  "name": "Knuddelwuff 2 – E-Mail-Entwürfe (nur mit Einwilligung)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "6c912125-b62a-4934-aa39-875c53268c89",
+      "name": "Start (manuell)",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "adf489f6-b8e8-4b36-88fc-4406281520ad",
+      "name": "Zeitplan",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "value": "BITTE_GOOGLE_SHEET_URL_EINTRAGEN",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Pipeline",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "ad93265a-12f8-47f2-8492-407a2e3e74ae",
+      "name": "Pipeline lesen",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        220,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nur Kontakte mit dokumentierter Einwilligung, E-Mail-Adresse und noch ohne Entwurf; max. 10 pro Lauf.\nconst MAX_PRO_LAUF = 10;\nconst ja = (v) => ['ja', 'yes', 'x', 'true'].includes(String(v || '').trim().toLowerCase());\nreturn $input.all()\n  .filter(i => ja(i.json.einwilligung)\n    && String(i.json.einwilligung_datum || '').trim()\n    && String(i.json.email_fuer_entwurf || '').includes('@')\n    && !String(i.json.email_entwurf || '').trim())\n  .slice(0, MAX_PRO_LAUF);\n"
+      },
+      "id": "cced4ea3-7cb4-40ce-b8db-c56c1b8dcdb1",
+      "name": "Kontakte mit Einwilligung",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-haiku-5-5', max_tokens: 900, system: \"Knuddelwuff ist ein deutscher Online-Shop im Aufbau für Hunde-Winterzubehör (Wintermäntel, Regen- und Wetterschutz, Pfotenschutz). Sortiment, Preise, Lieferzeiten und Händlerkonditionen stehen noch nicht fest. Regeln: Schreibe auf Deutsch, in der Sie-Form, sachlich. Nutze NUR die übergebenen Daten. Erfinde keine Personen, Namen, Fakten, Preise, Lieferzeiten, Bewertungen oder Produkteigenschaften (z. B. nicht 'wasserdicht', 'nachhaltig', 'Bestseller'). Wenn Informationen fehlen, sag das. Aufgabe: Schreibe einen E-Mail-Entwurf (max. 120 Wörter) an einen Betrieb, der der Kontaktaufnahme per E-Mail zugestimmt hat. Nimm Bezug auf die erteilte Einwilligung (Datum und Kanal werden übergeben). Kein Druck, keine Rabatte, keine Versprechen. Schließe mit dem Satz: 'Wenn Sie keine weiteren E-Mails wünschen, antworten Sie einfach kurz – dann melde ich mich nicht mehr.' Antworte ausschließlich als JSON: {\\\"betreff\\\":\\\"…\\\",\\\"text\\\":\\\"…\\\"}\", messages: [{ role: 'user', content: 'Betrieb: ' + JSON.stringify({ name: $json.name, kategorie: $json.kategorie, ort: $json.ort, ansprechpartner: $json.ansprechpartner || '', einwilligung_datum: $json.einwilligung_datum, einwilligung_kanal: $json.einwilligung_kanal, notizen: $json.notizen || '' }) }] }) }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
+            }
+          },
+          "timeout": 60000
+        }
+      },
+      "id": "25bb512d-36c6-4491-9922-f00bed238b78",
+      "name": "Claude: E-Mail-Entwurf",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const heute = new Date().toISOString().slice(0, 10);\nconst quellen = $('Kontakte mit Einwilligung').all();\nreturn $input.all().map((item, i) => {\n  const q = quellen[i] ? quellen[i].json : {};\n  let text = '';\n  try { text = item.json.content[0].text; } catch (e) { text = ''; }\n  let d = {};\n  try { d = JSON.parse(text.slice(text.indexOf('{'), text.lastIndexOf('}') + 1)); } catch (e) { d = {}; }\n  return { json: {\n    osm_id: q.osm_id,\n    name: q.name,\n    email_fuer_entwurf: q.email_fuer_entwurf,\n    einwilligung_datum: q.einwilligung_datum,\n    email_betreff: d.betreff || '',\n    email_entwurf: d.text || 'Entwurf konnte nicht erstellt werden – bitte manuell schreiben.',\n    entwurf_am: heute,\n    status: 'Entwurf an CEO',\n  } };\n});\n"
+      },
+      "id": "4e0517d6-8da9-427a-b5e9-64d6353cbfd7",
+      "name": "Entwurf auswerten",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "BITTE_GOOGLE_SHEET_URL_EINTRAGEN",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Pipeline",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "osm_id"
+          ],
+          "schema": []
+        },
+        "options": {}
+      },
+      "id": "b50048a2-4b7d-46c3-b097-246acd6383db",
+      "name": "Entwurf speichern",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1100,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "BITTE_EIGENE_TELEGRAM_CHAT_ID_EINTRAGEN",
+        "text": "={{ '📧 E-Mail-ENTWURF (nicht versendet)\\nAn: ' + $('Entwurf auswerten').item.json.email_fuer_entwurf + ' (' + $('Entwurf auswerten').item.json.name + ')\\nEinwilligung am: ' + $('Entwurf auswerten').item.json.einwilligung_datum + '\\n\\nBetreff: ' + $('Entwurf auswerten').item.json.email_betreff + '\\n\\n' + $('Entwurf auswerten').item.json.email_entwurf + '\\n\\n— Du entscheidest selbst, ob und wann du diese E-Mail versendest.' }}",
+        "additionalFields": {}
+      },
+      "id": "8124822e-ec2e-47f4-9586-e4fc6847f1b7",
+      "name": "Entwurf an CEO senden",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1320,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Knuddelwuff 2 – E-Mail-Entwürfe (nur mit Einwilligung)\nSchreibt Entwürfe **nur** für Zeilen mit Einwilligung = ja, Einwilligungsdatum und E-Mail-Adresse.\n\n**Kein E-Mail-Versand-Knoten.** Der Entwurf geht nur per Telegram an den CEO.",
+        "width": 520,
+        "height": 360
+      },
+      "id": "ae59e5b2-7c01-4199-a832-34d49be2742a",
+      "name": "Hinweis",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -420
+      ]
+    }
+  ],
+  "connections": {
+    "Pipeline lesen": {
+      "main": [
+        [
+          {
+            "node": "Kontakte mit Einwilligung",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Kontakte mit Einwilligung": {
+      "main": [
+        [
+          {
+            "node": "Claude: E-Mail-Entwurf",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude: E-Mail-Entwurf": {
+      "main": [
+        [
+          {
+            "node": "Entwurf auswerten",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entwurf auswerten": {
+      "main": [
+        [
+          {
+            "node": "Entwurf speichern",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Entwurf speichern": {
+      "main": [
+        [
+          {
+            "node": "Entwurf an CEO senden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start (manuell)": {
+      "main": [
+        [
+          {
+            "node": "Pipeline lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zeitplan": {
+      "main": [
+        [
+          {
+            "node": "Pipeline lesen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
