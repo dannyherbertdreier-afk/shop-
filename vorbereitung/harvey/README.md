@@ -40,3 +40,21 @@ Keine Rechtsberatung.
 
 ## Nicht im Repository (bewusst)
 Lead-Daten mit Personennamen (Repository ist öffentlich), Zugangsdaten, `.env`.
+
+## Technische Qualitätsprüfung (30.10.2026)
+
+| Prüfung | Ergebnis |
+|---|---|
+| Neue Tests `test_knuddelwuff_local.py` (DE-Opt-outs, Pet-OSM-Tags, Opt-out-Zeile, lokale Config) | **30 bestanden, 0 fehlgeschlagen** |
+| Bestehende Tests der betroffenen Bereiche (Config, Compliance-Footer, Opt-out, Security-Defaults, Discover, Outbox, Gmail-Inbox) | 306 bestanden, 0 fehlgeschlagen |
+| Gesamte Harvey-Testsuite (inkl. neuer Tests) | **2640 bestanden, 26 übersprungen, 0 fehlgeschlagen** |
+| Versand | `harvey sending status` → „PAUSED — paused manually“ |
+| require_approval / max_daily_sends / LinkedIn | true / 10 / aus (per Test und Config geprüft) |
+| Pipeline | 0 Firmen, 0 Kontakte, 0 Outbox-Einträge |
+| CLI | alle 18 Unterbefehle antworten auf `--help`; `harvey status`, `harvey outbox` laufen |
+| Secrets | keine `.env`; `harvey.local.yaml`, `data/` laut `.gitignore` von Harvey ausgeschlossen; Scan des Knuddelwuff-Repos (inkl. Historie) ohne Treffer |
+| Lead-Daten im Knuddelwuff-Repo | keine |
+
+Bekannte Einschränkungen der Patches: Teilwort-Erkennung („abmelden“, „kein interesse“) kann in seltenen Fällen eine Antwort
+fälschlich als Abmeldung werten (sichere Richtung: Kontakt endet). Deutsche Anführungszeichen „…“ in der Opt-out-Zeile werden
+vom Prüf-Regex nicht erkannt → gerade Anführungszeichen verwenden.
