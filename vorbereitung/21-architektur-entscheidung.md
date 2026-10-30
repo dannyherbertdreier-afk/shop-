@@ -54,3 +54,9 @@ Ohne diese Klärung ist jede automatisierte Kontaktfindung eine Investition mit 
 - Laut CEO: **„Wir dürfen diese Daten nutzen.“** Von Claude **nicht** rechtlich geprüft; Grundlage (Anwalt/IHK, Umfang) noch nicht dokumentiert.
 - Unverändert gilt, solange nicht ausdrücklich anders freigegeben: **kein E-Mail-Versand ohne Einwilligung** (§ 7 Abs. 2 Nr. 2 UWG), kein automatischer Versand.
 - Architektur: Option 3 (n8n + OpenStreetMap + Google Sheets + Claude-API + Telegram-Freigabe), Harvey vorerst geparkt.
+
+### Ergänzung CEO (30.10.2026)
+- Quelle der Freigabe zur Datennutzung: **IHK** (laut CEO; Dokument/Datum der Auskunft noch nachtragen).
+- E-Mail: Claude **bereitet E-Mails nur vor und sendet sie an den CEO**; Claude versendet nichts. Der CEO entscheidet selbst über jeden Versand.
+- Einwilligung („Genehmigung“) des Betriebs wird **vorher** eingeholt und in derselben Pipeline-Tabelle dokumentiert
+  (Spalten: Einwilligung ja/nein, Datum, Kanal, Nachweis). E-Mail-Entwürfe nur für Kontakte mit dokumentierter Einwilligung.
