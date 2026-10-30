@@ -49,3 +49,8 @@ Ohne diese Klärung ist jede automatisierte Kontaktfindung eine Investition mit 
 1. Dürfen wir Hundebetriebe (oft Einzelunternehmer) anhand öffentlicher Branchendaten (OSM, Website) **telefonisch** oder **per Brief** ansprechen – unter welchen Bedingungen gilt „mutmaßliche Einwilligung“?
 2. Dürfen wir diese Kontaktdaten dafür in einer eigenen Tabelle speichern (DSGVO, DSK-Orientierungshilfe Nr. 4.2)?
 3. Wie holen wir rechtssicher eine Einwilligung für spätere E-Mails ein?
+
+## CEO-Entscheidung (30.10.2026)
+- Laut CEO: **„Wir dürfen diese Daten nutzen.“** Von Claude **nicht** rechtlich geprüft; Grundlage (Anwalt/IHK, Umfang) noch nicht dokumentiert.
+- Unverändert gilt, solange nicht ausdrücklich anders freigegeben: **kein E-Mail-Versand ohne Einwilligung** (§ 7 Abs. 2 Nr. 2 UWG), kein automatischer Versand.
+- Architektur: Option 3 (n8n + OpenStreetMap + Google Sheets + Claude-API + Telegram-Freigabe), Harvey vorerst geparkt.
