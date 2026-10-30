@@ -57,8 +57,9 @@ Vorschlag für 3 Schemata:
 | Überschriften | **Manrope**, fett (700–800) | eine moderne, geometrische Sans-Serif aus dem Menü, z. B. „Montserrat“ oder „Outfit“, falls angeboten |
 | Fließtext | **Inter**, normal (400) | eine gut lesbare Sans-Serif, z. B. „Assistant“ oder „Work Sans“, falls angeboten |
 
-⚠️ **Nicht geprüft:** Ob Manrope und Inter in der Shopify-Schriftbibliothek enthalten sind, konnte ich
-nicht bestätigen. Im Theme-Editor unter **Theme-Einstellungen → Typografie** nachsehen.
+✔ **Geprüft am 30.10.2026:** Manrope und Inter sind laut shopify.dev in der Shopify-Schriftbibliothek
+enthalten (https://shopify.dev/docs/storefronts/themes/architecture/settings/fonts#available-fonts).
+Auswahl im Theme-Editor unter **Theme-Einstellungen → Typografie** („Change“).
 
 Vorteil der Shopify-Schriftbibliothek: Die Schriften werden über Shopify ausgeliefert. Das sollte
 das Datenschutz-Thema „Schriften direkt von Google laden“ aus dem Prototyp entschärfen.

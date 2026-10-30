@@ -14,6 +14,12 @@ Stand: 29.10.2026 · Arbeitsname **Knuddelwuff** (rechtlich nicht freigegeben)
 
 ---
 
+> **Aktualisierung 30.10.2026:** Ist-Stand im echten Shop steht in `18-shopify-fortschritt.md`,
+> Anleitung für die offenen Bereiche (E-Mails, Menüs, Seiten, Theme, Warenkorb, Launch) in `17`.
+> Korrekturen: Menüs liegen jetzt unter **Content → Menus**. Shopify-Steuerdienst: laut Shopify in der
+> EU bis 100.000 € Umsatz gebührenfrei, darüber 0,25 % je Bestellung (max. 0,99 €). Österreich wurde
+> als Markt entfernt.
+
 ## 9.1 Architektur (schlank)
 
 | Ebene | Lösung | Begründung |

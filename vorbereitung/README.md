@@ -22,6 +22,8 @@ Der Name **Knuddelwuff** ist rechtlich **nicht** freigegeben (Ähnlichkeit zu �
 | 14 | `14-conversion.md` | Conversion-Empfehlungen mit wirtschaftlichem Zweck |
 | 15 | `15-seo-und-traffic.md` | SEO- und Kanalplan, ohne Budget |
 | 16 | `16-arbeitsplan-und-ceo-aufgaben.md` | Phasen, Zuständigkeiten, CEO-Aufgaben |
+| 17 | `17-shopify-anleitung-offene-bereiche.md` | Standardwerte, Empfehlungen und Klickpfade für E-Mails, Menüs, Seiten, Kollektionen, Theme, Startseite, Produktseite, Warenkorb, Mobil, Passwort/Launch; Prüfung Versand/Rückgabe |
+| 18 | `18-shopify-fortschritt.md` | Ist-Stand im echten Shopify-Shop (aus CEO-Screenshots/-Angaben) |
 
 Keine der Unterlagen ist eine Rechts- oder Steuerberatung. Offene Punkte sind jeweils als
 UNBESTÄTIGT bzw. „CEO MUSS ENTSCHEIDEN“ markiert. Quellen stehen am Ende jeder Datei.
