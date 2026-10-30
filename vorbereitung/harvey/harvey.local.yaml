@@ -1,0 +1,86 @@
+# Knuddelwuff – lokale Harvey-Konfiguration (erstellt 30.10.2026 durch Claude)
+# Platzhalter in [ECKIGEN KLAMMERN] müssen vom CEO ersetzt werden.
+persona:
+  name: "[NAME ABSENDER]"
+  company: "Knuddelwuff"
+  role: "Gründer"
+  email: "[ABSENDER-ADRESSE]"
+  linkedin: ""
+  tone: "freundlich, sachlich, kurz, per Sie, keine Übertreibungen"
+
+product:
+  name: "Knuddelwuff"
+  description: >-
+    Online-Shop im Aufbau für Hunde-Winterzubehör: Wintermäntel und -jacken,
+    Regen- und Wetterschutz sowie Pfotenschutz. Sortiment, Preise und
+    Lieferanten sind noch nicht final.
+  pricing: "noch nicht festgelegt"
+  key_benefits:
+    - "Fokus auf Winterzubehör für Hunde (Mäntel, Regenschutz, Pfotenschutz)"
+    - "Größenhilfe mit Messanleitung für Rückenlänge, Brust- und Halsumfang"
+    - "kleines, bewusst ausgewähltes Sortiment"
+  objection_responses:
+    "kein Interesse": "Danke für die Rückmeldung, dann melde ich mich nicht mehr."
+    "haben schon Lieferanten": "Verstehe. Darf ich fragen, was Ihren Kundinnen und Kunden bei Winterzubehör heute fehlt?"
+    "zu teuer": "Konditionen stehen noch nicht fest. Welche Preisspanne wäre für Ihre Kundschaft realistisch?"
+  offer:
+    primary: "Gespräch über eine mögliche Zusammenarbeit (Wiederverkauf oder Empfehlung) – Konditionen noch offen"
+    entry: "kurze Rückmeldung, ob Winterzubehör für Ihre Kundschaft ein Thema ist"
+    goal: "get_reply"
+    booking_method: "ask_preference"
+    booking_url: ""
+    meeting_duration: "15 Minuten"
+    meeting_owner: "Gründer von Knuddelwuff"
+
+icp:
+  industries:
+    - "Hundesalon"
+    - "Zoofachgeschäft"
+    - "Hundepension"
+    - "Hundetagesstätte"
+    - "Hundeschule"
+  company_size: "1-20 Mitarbeitende"
+  titles: ["Inhaber", "Inhaberin", "Geschäftsführer", "Geschäftsführerin", "Owner", "Founder"]
+  geography:
+    - "Mannheim, Deutschland"
+    - "Frankfurt am Main, Deutschland"
+  geo_coordinates:
+    "Mannheim, Deutschland": "49.4875,8.4660,15"
+    "Frankfurt am Main, Deutschland": "50.1109,8.6821,15"
+  hiring_signals: []
+
+channels:
+  email:
+    enabled: true
+    provider: "smtp"            # noch kein Postfach verbunden → kein Versand möglich
+    max_daily_sends: 10         # niedriges Tageslimit
+    require_approval: true      # jede E-Mail wartet in der Outbox
+    send_to_risky: false
+    max_bounce_rate: 0.03       # Versand stoppt automatisch über 3 % Bounces
+    warmup:
+      start_date: ""
+      min_days: 14
+      start_sends: 3
+      daily_increase: 2
+    send_window:
+      start: "09:00"
+      end: "17:00"
+      weekdays_only: true
+      recipient_timezone: true
+  linkedin:
+    enabled: false              # keine LinkedIn-Automatisierung
+
+usage:
+  max_daily_claude_percent: 30
+  heartbeat_interval_minutes: 30
+  quiet_hours:
+    start: "20:00"
+    end: "08:00"
+    timezone: "Europe/Berlin"
+
+compliance:
+  postal_address: ""            # [CEO: ladungsfähige Geschäftsanschrift]
+  opt_out_line: 'Kein Interesse? Antworten Sie einfach mit "nein danke", dann schreibe ich nicht wieder.'
+  do_not_contact: []
+  precleared:
+    enabled: false              # unterstützt nur Absender aus GB/US

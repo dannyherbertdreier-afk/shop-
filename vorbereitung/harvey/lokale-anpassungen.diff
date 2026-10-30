@@ -1,0 +1,60 @@
+diff --git a/harvey/agents/handler.py b/harvey/agents/handler.py
+index b445b7d..43a2d72 100644
+--- a/harvey/agents/handler.py
++++ b/harvey/agents/handler.py
+@@ -56,6 +56,9 @@ NO_COMPANY_STOP_INTENTS = {"ooo", "wrong_person"}
+ # Hard opt-out phrases. If any of these appear, we ALWAYS honor the
+ # opt-out regardless of what the LLM classifier says.
+ OPT_OUT_PATTERNS = (
++    # Knuddelwuff (lokal): deutsche Abmeldungen
++    "abmelden", "austragen", "keine weiteren e-mails", "keine e-mails mehr",
++    "keine werbung", "nicht mehr kontaktieren", "nicht mehr anschreiben", "kein interesse",
+     "unsubscribe",
+     "opt out",
+     "opt-out",
+@@ -78,7 +81,7 @@ OPT_OUT_PATTERNS = (
+ NO_THANKS_RE = re.compile(
+     r"(?<!\bor )\bno,?[ \t]+thank(?:s|[ \t]+you)\b(?![ \t]+(?:needed|necessary|required))")
+ # A reply that says only this (signature aside) is an opt-out ("Reply STOP").
+-BARE_OPT_OUTS = {"stop", "unsubscribe", "remove", "remove me", "opt out",
++BARE_OPT_OUTS = {"nein danke", "kein interesse", "abmelden", "stop", "unsubscribe", "remove", "remove me", "opt out",
+                  "no thanks", "no thank you"}
+ _MOBILE_SIGNATURE_RE = re.compile(
+     r"^[ \t]*(?:sent from my \w[^\n]*|get outlook for \w[^\n]*|sent from \w+ mail[^\n]*)$",
+diff --git a/harvey/collectors/discover.py b/harvey/collectors/discover.py
+index a66e1f6..f2ccf01 100644
+--- a/harvey/collectors/discover.py
++++ b/harvey/collectors/discover.py
+@@ -1064,6 +1064,15 @@ class OpenStreetMap(DiscoveryProvider):
+         "attorney": ['office=lawyer'],
+         "contractor": ['craft=builder', 'office=construction_company'],
+         "landscap": ['craft=gardener', 'shop=garden_centre'],
++        # Knuddelwuff (lokal): Hundebetriebe
++        "hundesalon": ['shop=pet_grooming'],
++        "hundefris": ['shop=pet_grooming'],
++        "zoofach": ['shop=pet'],
++        "tierbedarf": ['shop=pet'],
++        "hundepension": ['amenity=animal_boarding'],
++        "hundetages": ['amenity=animal_boarding'],
++        "hundeschule": ['amenity=animal_training'],
++        "hundetrain": ['amenity=animal_training'],
+     }
+ 
+     def _tags(self, term: str) -> list[str]:
+diff --git a/harvey/config.py b/harvey/config.py
+index 6174eb4..bb60e5c 100644
+--- a/harvey/config.py
++++ b/harvey/config.py
+@@ -375,10 +375,10 @@ class PreclearedConfig(BaseModel):
+ DEFAULT_OPT_OUT_LINE = 'Not interested? Reply "no thanks" and I won\'t email again.'
+ # The replies the Handler always honours as an opt-out on their own; an
+ # opt_out_line must ask for one of them ("Reply STOP", 'reply "no thanks"').
+-OPT_OUT_WORDS = ("no thanks", "no thank you", "unsubscribe", "stop", "remove me",
++OPT_OUT_WORDS = ("nein danke", "abmelden", "no thanks", "no thank you", "unsubscribe", "stop", "remove me",
+                  "opt out")
+ _ASKS_FOR_OPT_OUT_RE = re.compile(
+-    r"\breply(?:\s+with)?\s*[\"'\u201c\u2018]?\s*(?:"
++    r"\b(?:reply(?:\s+with)?|antworten\s+sie(?:\s+(?:einfach|kurz))?\s+mit)\s*[\"'\u201c\u2018]?\s*(?:"
+     + "|".join(re.escape(w) for w in OPT_OUT_WORDS) + r")\b", re.IGNORECASE)
+ 
+ 
