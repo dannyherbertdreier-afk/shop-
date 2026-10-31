@@ -1,6 +1,6 @@
 # Vorbereitung Shopify-Shop „Knuddelwuff“ (Arbeitsname)
 
-Stand: 29.10.2026 · erstellt auf Anweisung des CEO · **nichts davon ist live**.
+Stand: 31.10.2026 · erstellt auf Anweisung des CEO · **nichts davon ist live**.
 Der Name **Knuddelwuff** ist rechtlich **nicht** freigegeben (Ähnlichkeit zu „Knuffelwuff“).
 Ältere Dateien nutzen noch den Platzhalter **[MARKENNAME]**.
 
@@ -24,6 +24,13 @@ Der Name **Knuddelwuff** ist rechtlich **nicht** freigegeben (Ähnlichkeit zu �
 | 16 | `16-arbeitsplan-und-ceo-aufgaben.md` | Phasen, Zuständigkeiten, CEO-Aufgaben |
 | 17 | `17-shopify-anleitung-offene-bereiche.md` | Standardwerte, Empfehlungen und Klickpfade für E-Mails, Menüs, Seiten, Kollektionen, Theme, Startseite, Produktseite, Warenkorb, Mobil, Passwort/Launch; Prüfung Versand/Rückgabe |
 | 18 | `18-shopify-fortschritt.md` | Ist-Stand im echten Shopify-Shop (aus CEO-Screenshots/-Angaben) |
+| 19 | `19-launch-voraussetzungen.md` | Voraussetzungen für den Launch |
+| 20 | `20-produkt-shortlist-launch.md` | Produkt-Shortlist (Printful/POD, Stand 30.10.) |
+| 21 | `21-architektur-entscheidung.md` | Architektur-Entscheidung (n8n statt Harvey) |
+| 22 | `22-uebergabe-gesamt.md` | Übergabe, Entwickler-Protokoll, CEO-Bericht (Gesamtstand) |
+| 23 | `23-cj-recherche-bericht.md` | CJ-Zugriff und Suche „dog winter coat“/„dog boots“ (EU-Lager) |
+| 24 | `24-eu-lieferanten-produktrecherche.md` | **Phase 2:** EU-Lieferanten, Shortlist 12 Produkte (Rukka über Warmako u. a.) |
+| 25 | `25-produktdaten-struktur.md` + `shopify-entwurf/` | Produktdaten-Felder, Tags, Entwurf Produktseite mit Metafeldern (nicht eingespielt) |
 
 Keine der Unterlagen ist eine Rechts- oder Steuerberatung. Offene Punkte sind jeweils als
 UNBESTÄTIGT bzw. „CEO MUSS ENTSCHEIDEN“ markiert. Quellen stehen am Ende jeder Datei.

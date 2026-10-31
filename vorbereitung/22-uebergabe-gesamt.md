@@ -38,6 +38,13 @@ Kennzeichnung: ✔ geprüft · ⚠️ offen/Risiko · ❓ unbestätigt
 **19 Launch-Voraussetzungen** · **20 Produkt-Shortlist Launch** · **21 Architektur-Entscheidung** · 22 dieses Dokument ·
 `shopify-theme-sicherung/` · `harvey/` · `n8n/`
 
+## 1.4a Nachtrag 31.10.2026
+- CJ per API geprüft (`23`): in EU-Lagern **keine** Hundebekleidung/-schuhe; CJ-Regenmantel wird **nicht** importiert.
+- Phase 2 (`24`): Favorit **Rukka über Warmako (NL)**, Dropshipping über Droppery; Einkaufspreise nur mit
+  Händlerkonto (Voraussetzung: Gewerbe, USt-IdNr., aktiver Webshop). Shortlist 12 Kandidaten.
+- `25`: Produktdaten-Struktur und Entwurf der Produktseite mit Metafeldern (nur im Repo).
+- Der Schritt in 1.4 unten ist damit überholt.
+
 ## 1.4 Laufender Arbeitsschritt
 CJ ist verbunden. Nächster Schritt: In CJ `dog winter coat` (danach `dog boots`) suchen, Versandort-Filter Germany/EU,
 Screenshots der Ergebnisse an Claude → Bewertung (Preis, Versand, Lieferzeit, Marge) → erst dann „List“ in den Shop.
