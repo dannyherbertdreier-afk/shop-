@@ -31,6 +31,7 @@ Der Name **Knuddelwuff** ist rechtlich **nicht** freigegeben (Ähnlichkeit zu �
 | 23 | `23-cj-recherche-bericht.md` | CJ-Zugriff und Suche „dog winter coat“/„dog boots“ (EU-Lager) |
 | 24 | `24-eu-lieferanten-produktrecherche.md` | **Phase 2:** EU-Lieferanten, Shortlist 12 Produkte (Rukka über Warmako u. a.) |
 | 25 | `25-produktdaten-struktur.md` + `shopify-entwurf/` | Produktdaten-Felder, Tags, Entwurf Produktseite mit Metafeldern (nicht eingespielt) |
+| 26 | `26-import-5-produkte.md` + `import/` | 5 Rukka-Produkte (Warmako, Lager NL) als Entwurf vorbereitet, Import-Skript + CSV, Tests |
 
 Keine der Unterlagen ist eine Rechts- oder Steuerberatung. Offene Punkte sind jeweils als
 UNBESTÄTIGT bzw. „CEO MUSS ENTSCHEIDEN“ markiert. Quellen stehen am Ende jeder Datei.

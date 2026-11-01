@@ -1,0 +1,492 @@
+{
+  "stand": "2026-11-01",
+  "note": "Quelle: öffentliche Warmako-Produktseiten. Preise = UVP (Adviesverkoopprijs). EK nicht verifiziert.",
+  "products": [
+    {
+      "handle": "rukka-stormy-hundemantel-fleecefutter",
+      "source_handle": "rukka-stormy-coat",
+      "title": "Rukka Stormy Hundemantel mit Fleecefutter",
+      "product_type": "Hundemantel",
+      "tags": [
+        "kategorie-maentel",
+        "quelle-warmako",
+        "marke-rukka",
+        "lager-nl",
+        "ek-ungeprueft",
+        "import-entwurf"
+      ],
+      "uvp": "54.99",
+      "description_html": "<p>Der Rukka Stormy ist ein wasserdichter Hundemantel mit warmem Fleecefutter für kalte Tage und Hunde, die schnell frieren.</p>\n<p>Durch den Halb-Cape-Schnitt mit offenen Klappen an den Vorderbeinen bleibt die Bewegungsfreiheit beim Laufen erhalten. Der Klickverschluss erleichtert das An- und Ausziehen, Kragen und Bund sind verstellbar.</p>\n<ul>\n<li>Wasserdichtes Material</li>\n<li>Warmes Fleecefutter</li>\n<li>Klickverschluss, verstellbarer Kragen und Bund</li>\n<li>Abgedeckte Leinenöffnung am Rücken</li>\n<li>Elastische Schlaufen an den Hinterbeinen</li>\n<li>Reflektierende Details</li>\n<li>Farbe: Dark Agave</li>\n</ul>\n<p>Bitte wähle die Größe anhand der Größentabelle.</p>",
+      "options": [
+        "Größe"
+      ],
+      "variants": [
+        {
+          "options": [
+            "25"
+          ],
+          "supplier_sku": "6038",
+          "barcode": "6413910758055",
+          "grams": null
+        },
+        {
+          "options": [
+            "30"
+          ],
+          "supplier_sku": "6039",
+          "barcode": "6413910758062",
+          "grams": null
+        },
+        {
+          "options": [
+            "35"
+          ],
+          "supplier_sku": "6040",
+          "barcode": "6413910758079",
+          "grams": null
+        },
+        {
+          "options": [
+            "40"
+          ],
+          "supplier_sku": "6041",
+          "barcode": "6413910758086",
+          "grams": null
+        },
+        {
+          "options": [
+            "45"
+          ],
+          "supplier_sku": "6042",
+          "barcode": "6413910758093",
+          "grams": null
+        },
+        {
+          "options": [
+            "50"
+          ],
+          "supplier_sku": "6043",
+          "barcode": "6413910758109",
+          "grams": null
+        },
+        {
+          "options": [
+            "55"
+          ],
+          "supplier_sku": "6044",
+          "barcode": "6413910758116",
+          "grams": null
+        },
+        {
+          "options": [
+            "60"
+          ],
+          "supplier_sku": "6045",
+          "barcode": "6413910758123",
+          "grams": null
+        },
+        {
+          "options": [
+            "65"
+          ],
+          "supplier_sku": "6046",
+          "barcode": "6413910758130",
+          "grams": null
+        }
+      ],
+      "metafields": {
+        "pflege": "Maschinenwaschbar (Temperatur laut Lieferant nicht angegeben)."
+      },
+      "vendor": "Rukka",
+      "supplier": {
+        "name": "Warmako B.V.",
+        "warehouse": "Zentrallager Niederlande (laut Warmako)",
+        "product_id": 9595007566071,
+        "article": "6038",
+        "url": "https://www.warmako.com/products/rukka-stormy-coat",
+        "unavailable_sizes": [],
+        "checked": "2026-11-01"
+      }
+    },
+    {
+      "handle": "rukka-windy-thermal-softshell-hundejacke",
+      "source_handle": "rukka-windy-thermal-jacket",
+      "title": "Rukka Windy Thermal Softshell-Hundejacke, schwarz",
+      "product_type": "Hundejacke",
+      "tags": [
+        "kategorie-maentel",
+        "quelle-warmako",
+        "marke-rukka",
+        "lager-nl",
+        "ek-ungeprueft",
+        "import-entwurf"
+      ],
+      "uvp": "49.99",
+      "description_html": "<p>Die Rukka Windy Thermal ist eine Softshelljacke mit weichem Plüschfutter. Der hohe, verstellbare Kragen schützt Hals und Ohren vor kaltem Wind.</p>\n<p>Ein breiter Klettverschluss am Bauch sorgt für eine anpassbare Passform. Die verlängerten Rückenteile bedecken die Oberschenkel. Elastische Schlaufen an den Hinterbeinen halten die Jacke an ihrem Platz.</p>\n<ul>\n<li>Winddichtes und wasserabweisendes Material</li>\n<li>Warmes, weiches Plüschfutter</li>\n<li>Verstellbarer Bund und Kragen</li>\n<li>Leinenöffnung am Kragen</li>\n<li>Reflektierende Paspeln</li>\n<li>Farbe: Schwarz</li>\n</ul>\n<p>Bitte wähle die Größe anhand der Größentabelle.</p>",
+      "options": [
+        "Größe"
+      ],
+      "variants": [
+        {
+          "options": [
+            "25"
+          ],
+          "supplier_sku": "8141",
+          "barcode": "6413910757966",
+          "grams": 120
+        },
+        {
+          "options": [
+            "35"
+          ],
+          "supplier_sku": "8143",
+          "barcode": "6413910757980",
+          "grams": 190
+        },
+        {
+          "options": [
+            "40"
+          ],
+          "supplier_sku": "8144",
+          "barcode": "6413910757997",
+          "grams": 220
+        },
+        {
+          "options": [
+            "45"
+          ],
+          "supplier_sku": "8145",
+          "barcode": "6413910758000",
+          "grams": 280
+        },
+        {
+          "options": [
+            "50"
+          ],
+          "supplier_sku": "8146",
+          "barcode": "6413910758017",
+          "grams": 310
+        },
+        {
+          "options": [
+            "55"
+          ],
+          "supplier_sku": "8147",
+          "barcode": "6413910758024",
+          "grams": 380
+        },
+        {
+          "options": [
+            "60"
+          ],
+          "supplier_sku": "8148",
+          "barcode": "6413910758031",
+          "grams": 430
+        },
+        {
+          "options": [
+            "65"
+          ],
+          "supplier_sku": "8149",
+          "barcode": "6413910758048",
+          "grams": 480
+        }
+      ],
+      "metafields": {
+        "material": "96 % Polyester, 4 % Elasthan",
+        "pflege": "Bei max. 30 °C waschen. Separat waschen. Keinen Weichspüler verwenden. Nicht bleichen, nicht chemisch reinigen, nicht bügeln, nicht im Trockner trocknen."
+      },
+      "vendor": "Rukka",
+      "supplier": {
+        "name": "Warmako B.V.",
+        "warehouse": "Zentrallager Niederlande (laut Warmako)",
+        "product_id": 9595005829367,
+        "article": "8141",
+        "url": "https://www.warmako.com/products/rukka-windy-thermal-jacket",
+        "unavailable_sizes": [
+          "Zwart / Maat 30"
+        ],
+        "checked": "2026-11-01"
+      }
+    },
+    {
+      "handle": "rukka-sock-shoes-hundeschuhe-rutschfest",
+      "source_handle": "rukka-sock-shoes",
+      "title": "Rukka Sock Shoes Hundeschuhe, rutschfest (4 Stück)",
+      "product_type": "Hundeschuhe",
+      "tags": [
+        "kategorie-pfotenschutz",
+        "quelle-warmako",
+        "marke-rukka",
+        "lager-nl",
+        "ek-ungeprueft",
+        "import-entwurf"
+      ],
+      "uvp": "24.99",
+      "description_html": "<p>Die Rukka Sock Shoes sind leichte Hundeschuhe mit gummierter Sohle. Sie schützen die Pfoten draußen vor Schmutz und Nässe und geben auf glatten Böden im Haus mehr Halt.</p>\n<ul>\n<li>4 Schuhe pro Packung</li>\n<li>Rutschhemmende, gummierte Sohle</li>\n<li>Klettverschluss</li>\n<li>Reflektierende Details</li>\n</ul>\n<p><strong>Größe finden:</strong> Eine Vorderpfote auf ein Blatt Papier stellen, den Umriss nachzeichnen und die breiteste Stelle messen. Liegt der Wert zwischen zwei Größen, die größere wählen, damit sich die Pfote im Schuh vollständig öffnen kann.</p>",
+      "options": [
+        "Größe"
+      ],
+      "variants": [
+        {
+          "options": [
+            "1 (35 × 28 mm)"
+          ],
+          "supplier_sku": "8150",
+          "barcode": "6413910967013",
+          "grams": 40
+        },
+        {
+          "options": [
+            "2 (39 × 32 mm)"
+          ],
+          "supplier_sku": "8151",
+          "barcode": "6413910967020",
+          "grams": 40
+        },
+        {
+          "options": [
+            "3 (45 × 37 mm)"
+          ],
+          "supplier_sku": "8152",
+          "barcode": "6413910967037",
+          "grams": 50
+        },
+        {
+          "options": [
+            "5 (60 × 50 mm)"
+          ],
+          "supplier_sku": "8154",
+          "barcode": "6413910967051",
+          "grams": 80
+        },
+        {
+          "options": [
+            "6 (68 × 56 mm)"
+          ],
+          "supplier_sku": "8155",
+          "barcode": "6413910967068",
+          "grams": 110
+        }
+      ],
+      "metafields": {
+        "material": "54 % Polyester, 5 % Polyamid, 3 % Elasthan, 38 % Gummi",
+        "pflege": "Handwäsche. Separat waschen. Keinen Weichspüler verwenden. Nicht bleichen, nicht chemisch reinigen, nicht bügeln, nicht im Trockner trocknen.",
+        "groessentabelle": "Maße je Größe laut Lieferant:\nGröße 1: 35 × 28 mm\nGröße 2: 39 × 32 mm\nGröße 3: 45 × 37 mm\nGröße 4: 52 × 43 mm\nGröße 5: 60 × 50 mm\nGröße 6: 68 × 56 mm\nGröße 7: 80 × 66 mm"
+      },
+      "vendor": "Rukka",
+      "supplier": {
+        "name": "Warmako B.V.",
+        "warehouse": "Zentrallager Niederlande (laut Warmako)",
+        "product_id": 9598676304119,
+        "article": "8150",
+        "url": "https://www.warmako.com/products/rukka-sock-shoes",
+        "unavailable_sizes": [
+          "Size 4 - 52 x 43 mm",
+          "Size 7 - 80 x 66 mm"
+        ],
+        "checked": "2026-11-01"
+      }
+    },
+    {
+      "handle": "rukka-protect-overall-hund-wasserdicht",
+      "source_handle": "rukka-protect-overall",
+      "title": "Rukka Protect Overall für Hunde, wasserdicht",
+      "product_type": "Overall",
+      "tags": [
+        "kategorie-overalls",
+        "quelle-warmako",
+        "marke-rukka",
+        "lager-nl",
+        "ek-ungeprueft",
+        "import-entwurf"
+      ],
+      "uvp": "64.90",
+      "description_html": "<p>Der Rukka Protect Overall schützt vor Wind und Regen. Er besteht aus wasserdichtem, atmungsaktivem Stretchmaterial mit getapten Nähten.</p>\n<p>Der Zwei-Wege-Reißverschluss am Rücken erleichtert das Anziehen. Klettverschlüsse an den Beinenden, ein verstellbarer Bund und ein hoher, verstellbarer Kragen sorgen für eine anpassbare Passform.</p>\n<ul>\n<li>Wasserdichtes, atmungsaktives Stretchmaterial</li>\n<li>Alle Nähte getapt, wasserdichter Reißverschluss</li>\n<li>Leinenöffnung</li>\n<li>Hoher, verstellbarer Kragen</li>\n<li>Reflektierende Paspeln und reflektierendes Logo</li>\n<li>Farbe: Schwarz</li>\n</ul>\n<p>Hinweis: Ein Wärmefutter wird vom Lieferanten nicht angegeben.</p>\n<p>Bitte wähle die Größe anhand der Größentabelle.</p>",
+      "options": [
+        "Größe"
+      ],
+      "variants": [
+        {
+          "options": [
+            "25"
+          ],
+          "supplier_sku": "6988",
+          "barcode": "6413910538954",
+          "grams": null
+        },
+        {
+          "options": [
+            "30"
+          ],
+          "supplier_sku": "6989",
+          "barcode": "6413910538961",
+          "grams": null
+        },
+        {
+          "options": [
+            "40"
+          ],
+          "supplier_sku": "6991",
+          "barcode": "6413910538985",
+          "grams": null
+        }
+      ],
+      "metafields": {
+        "material": "96 % Polyester, 4 % Elasthan",
+        "pflege": "Maschinenwäsche bei 30 °C."
+      },
+      "vendor": "Rukka",
+      "supplier": {
+        "name": "Warmako B.V.",
+        "warehouse": "Zentrallager Niederlande (laut Warmako)",
+        "product_id": 9598680531191,
+        "article": "6988",
+        "url": "https://www.warmako.com/products/rukka-protect-overall",
+        "unavailable_sizes": [
+          "Maat 35",
+          "Maat 45",
+          "Maat 50",
+          "Maat 55",
+          "Maat 60",
+          "Maat 65"
+        ],
+        "checked": "2026-11-01"
+      }
+    },
+    {
+      "handle": "rukka-comfy-knit-fleecejacke-hund",
+      "source_handle": "rukka-comfy-jacket",
+      "title": "Rukka Comfy Knit Fleecejacke für Hunde",
+      "product_type": "Hundejacke",
+      "tags": [
+        "kategorie-maentel",
+        "quelle-warmako",
+        "marke-rukka",
+        "lager-nl",
+        "ek-ungeprueft",
+        "import-entwurf"
+      ],
+      "uvp": "34.90",
+      "description_html": "<p>Die Rukka Comfy Knit ist eine warme, atmungsaktive Fleecejacke für kühlere Tage. Das Material nimmt laut Lieferant keine Feuchtigkeit auf und trocknet schnell.</p>\n<p>Der hohe Kragen lässt sich hoch oder umgeschlagen tragen. Ein elastischer Bund mit Klettverschluss passt die Jacke an, elastische Schlaufen an den Hinterbeinen halten sie an ihrem Platz.</p>\n<ul>\n<li>Warmes, atmungsaktives Fleece</li>\n<li>Schnell trocknend</li>\n<li>Verstellbarer Kragen und Bund</li>\n<li>Reflektierende Details</li>\n</ul>\n<p>Bitte wähle die Größe anhand der Größentabelle.</p>",
+      "options": [
+        "Farbe",
+        "Größe"
+      ],
+      "variants": [
+        {
+          "options": [
+            "Grün",
+            "30"
+          ],
+          "supplier_sku": "6998",
+          "barcode": "6413910965361",
+          "grams": null
+        },
+        {
+          "options": [
+            "Grün",
+            "35"
+          ],
+          "supplier_sku": "6999",
+          "barcode": "6413910965378",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "25"
+          ],
+          "supplier_sku": "6029",
+          "barcode": "6413910704601",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "30"
+          ],
+          "supplier_sku": "6030",
+          "barcode": "6413910704618",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "35"
+          ],
+          "supplier_sku": "6031",
+          "barcode": "6413910704625",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "40"
+          ],
+          "supplier_sku": "6032",
+          "barcode": "6413910704632",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "45"
+          ],
+          "supplier_sku": "6033",
+          "barcode": "6413910704649",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "50"
+          ],
+          "supplier_sku": "6034",
+          "barcode": "6413910704656",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "55"
+          ],
+          "supplier_sku": "6035",
+          "barcode": "6413910704663",
+          "grams": null
+        },
+        {
+          "options": [
+            "Schwarz",
+            "60"
+          ],
+          "supplier_sku": "6036",
+          "barcode": "6413910704670",
+          "grams": null
+        }
+      ],
+      "metafields": {
+        "pflege": "Maschinenwäsche bei 30 °C. Keinen Weichspüler verwenden."
+      },
+      "vendor": "Rukka",
+      "supplier": {
+        "name": "Warmako B.V.",
+        "warehouse": "Zentrallager Niederlande (laut Warmako)",
+        "product_id": 9595008155895,
+        "article": "6998",
+        "url": "https://www.warmako.com/products/rukka-comfy-jacket",
+        "unavailable_sizes": [
+          "Groen / Maat 25",
+          "Groen / Maat 40",
+          "Groen / Maat 45",
+          "Groen / Maat 50",
+          "Groen / Maat 55",
+          "Groen / Maat 60",
+          "Groen / Maat 65",
+          "Zwart / Maat 65"
+        ],
+        "checked": "2026-11-01"
+      }
+    }
+  ]
+}
