@@ -95,3 +95,14 @@ CJ (Lager DE) schied aus, weil es dort keine passende Ware gibt (`23`, `24`).
 - Herstelleranschrift für die GPSR-Angaben
 - Bildrechte
 - Ob Warmako an Knuddelwuff liefert: Voraussetzungen sind Gewerbe, USt-IdNr. und ein aktiver Webshop
+
+## 26.7 Ergebnis Import
+- **Datum:** 01.11.2026
+- **Ergebnis:** **nicht importiert.** In Shopify wurde nichts angelegt oder geändert.
+- **Grund:** `SHOPIFY_SHOP`, `SHOPIFY_CLIENT_ID` und `SHOPIFY_CLIENT_SECRET` fehlen in der Cloud-Umgebung (siehe 26.5). `--apply` bricht vor dem ersten API-Aufruf ab mit „Zugangsdaten fehlen“ (Exit-Code 1).
+- **Probelauf:** ok. 5 Produkte, alle DRAFT, Varianten 9 + 8 + 5 + 3 + 10 = **35**.
+- **Tests:** `test_shopify_draft_import.py` → **5/5 ok**.
+- **Shopify-Produkt-IDs:** keine, weil nichts angelegt wurde.
+- **Skript-Korrekturen:** keine. Der echte `productSet`-Aufruf (API 2026-10) ist weiter **ungetestet**.
+- **`import-ergebnis.json`:** nicht angelegt, weil es noch keine echten Ergebnisse gibt.
+- **Nächster Schritt:** die drei Variablen in der Cloud-Umgebung hinterlegen (Umgebungsmenü in der Titelleiste → Bearbeiten). Danach in einer neuen Sitzung `--apply` ausführen und gegenprüfen.
